@@ -31,11 +31,16 @@ As part of this process, you will:
 In this lab, we're starting from scratch.
 So the first thing you'll do is create a new skill.
 
-1. With the Oracle Digital Assistant UI open in your browser, click ハンバーガー・アイコン to open the side menu.
-
-2. Click **「Develpment」** and select **「Skills」**.
-
-3. Click ハンバーガー・アイコン again to collapse the side menu.
+1. Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
+画面左上のハンバーガー・アイコン
+![ハンバーガー・アイコン](images/icon_hamburger.png "ハンバーガー・アイコン")
+をクリックしてメニューを開きます。  
+![Oracle Digital Assistant Designer UI](images/designer_home-01.png "Oracle Digital Assistant の Designer UI でハンバーガー・アイコンをクリック")  
+2. メニューから **「Develpment」** をクリックし、 **「Skills」** を選択します。  
+![Oracle Digital Assistant Designer UI](images/designer_home-02.png "Designer UI のメニューから「Development」→「Skills」を選択")  
+3. メニューを閉じるために、ハンバーガー・アイコン
+![ハンバーガー・アイコン](images/icon_hamburger.png "ハンバーガー・アイコン")
+をもう一度クリックします。
 
 4. Click the **「New Skill」** tile.
 
