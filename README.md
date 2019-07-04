@@ -20,44 +20,49 @@ As part of this process, you will:
 
 このチュートリアルで使用している表記方法は次のとおりです。
 
-|表記方法|説明|
-|------|---|
-|**「太字」**|ボタン、各種フィールドのラベルなどの GUI 要素|
-|_<イタリック>_|使用する環境などによって置き換える部分を表すプレースホルダー|
-|`固定幅フォント`|実行するコマンド、URL、サンプルコード、入力するテキスト|
+| 表記方法 | 説明 |
+|--------|-----|
+| **「太字」** | ボタン、各種フィールドのラベルなどの GUI 要素 |
+| _<イタリック>_ | 使用する環境などによって置き換える部分を表すプレースホルダー |
+| `固定幅フォント` | 実行するコマンド、URL、サンプルコード、入力するテキスト |
 
 ## スキルの作成
 
 In this lab, we're starting from scratch.
 So the first thing you'll do is create a new skill.
 
-1. Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
-画面左上のハンバーガー・アイコン
-![ハンバーガー・アイコン](images/icon_hamburger.png "ハンバーガー・アイコン")
-をクリックしてメニューを開きます。  
-![Oracle Digital Assistant Designer UI](images/designer_home-01.png "Oracle Digital Assistant の Designer UI でハンバーガー・アイコンをクリック")  
-2. メニューから **「Develpment」** をクリックし、 **「Skills」** を選択します。  
-![Oracle Digital Assistant Designer UI](images/designer_home-02.png "Designer UI のメニューから「Development」→「Skills」を選択")  
-3. メニューを閉じるために、ハンバーガー・アイコン
-![ハンバーガー・アイコン](images/icon_hamburger.png "ハンバーガー・アイコン")
-をもう一度クリックします。
+**【ステップ 1】**
+Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
+画面左上の ![ハンバーガー・アイコン][icon_hamburger] をクリックしてメニューを開きます。
 
-4. Click the **「New Skill」** tile.
+![Oracle Digital Assistant Designer UI](images/designer_home-01.png "Oracle Digital Assistant の Designer UI でハンバーガー・アイコンをクリック")
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/tile_new-skill.png)
+**【ステップ 2】**
+メニューから **「Develpment」** をクリックし、 **「Skills」** を選択します。
 
-  The **「Create Skill」** dialog appears.
+![Oracle Digital Assistant Designer UI](images/designer_home-02.png "Designer UI のメニューから「Development」→「Skills」を選択")
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/dialog_create-skill.png)
+**【ステップ 3】**
+メニューを閉じるために、 ![ハンバーガー・アイコン][icon_hamburger] をもう一度クリックします。
 
-5. For **「Display Name」** enter `Pizza King`.
-  If you are working in an environment where others may also be creating the same tutorial, prefix Pizza King with your unique initials.
+**【ステップ 4】**
+**「New Skill」** をクリックします。
 
-6. For **「Version」**, enter `1.0`.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/tile_new-skill.png)
 
-7. Optionally, fill in a **「One-Sentence Description」**, e.g. `Skill for ordering from Pizza King.`
+**「Create Skill」** ボックスが表示されます。
 
-8. Click **「Create」**.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/dialog_create-skill.png)
+
+**【ステップ 5】**
+**「Create Skill」** ダイアログの **「Display Name」** フィールドに `Pizza King` と入力します。
+このチュートリアルを同じ環境で実施する人が他にもいる場合は、区別できるように `Pizza King` の前または後ろにあなたのイニシャルなどを付けてください。
+
+**【ステップ 6】**
+**「Version」** フィールドに `1.0` と入力します。
+
+**【ステップ 7】**
+**「Create」** ボタンをクリックします。
 
 The designer will then open on the **「Intents」** page.
 Here's where we'll begin to express the use case (that is, the PizzaKing-customer activity flow) in terms of the concepts that support Natural Language Processing (NLP): intents and entities.
@@ -71,65 +76,81 @@ For the PizzaKing example, you will create intents for ordering pizza, cancellin
 
 ### インテント(1) ピザの注文
 
-1. In the left navigation for the designer, make sure that **Intents** is selected.
+**【ステップ 1】**
+Designer UI の画面左側のナビゲーションで ![「Intents」アイコン][icon_intents_selected] が選択されていることを確認します。
 
-2. Click the **「+ Intent」** button.
+**【ステップ 2】**
+![「＋ Intent」ボタン][button_create_intent] をクリックします。
 
-3. In the **「Name」** field, type `OrderPizza`.
+**【ステップ 3】**
+**「Name」** フィールドに `OrderPizza` と入力します。
 
-4. Copy the example sentences below, paste them into the Enter your example utterances here field, and press the Enter key.
-  (Yes, you can paste all of them at once.)
+**【ステップ 4】**
+Copy the example sentences below, paste them into the Enter your example utterances here field, and press the Enter key.
+(Yes, you can paste all of them at once.)
 
-  * Would you happen to have thin crust options on your Pizzas?
-  * Let's order a cheese pizza
-  * Would love a large Pepperoni please!
-  * I feel like eating some pizza
-  * I would like to order a pizza
-  * Can I order a Pizza?
-  * What's on the menu today?
-  * I want pizza
-  * Do you server gluten-free pizza?
-  * I want to order pizza for lunch
-  * Do you have deep dish pizzas available?
-  * Order Pizza!
+```
+Would you happen to have thin crust options on your Pizzas?
+Let's order a cheese pizza
+Would love a large Pepperoni please!
+I feel like eating some pizza
+I would like to order a pizza
+Can I order a Pizza?
+What's on the menu today?
+I want pizza
+Do you server gluten-free pizza?
+I want to order pizza for lunch
+Do you have deep dish pizzas available?
+Order Pizza!
+```
 
-  You'll notice that it's fine for utterances to have inconsistent punctuation and capitalization.
+You'll notice that it's fine for utterances to have inconsistent punctuation and capitalization.
 
 ### インテント(2) 注文したピザのキャンセル
 
-1. Click the + Intent button.
+**【ステップ 1】**
+![「＋ Intent」ボタン][button_create_intent] をクリックします。
 
-2. In the Name field, type CancelPizza.
+**【ステップ 2】**
+**「Name」** フィールドに `CancelPizza` と入力します。
 
-3. Copy the example sentences below, paste them into the Enter your example utterances here field, and press the Enter key.
+**【ステップ 3】**
+Copy the example sentences below, paste them into the Enter your example utterances here field, [Enter] キーを押します。
 
-  * Can i cancel my order?
-  * Cancel my order
-  * Cancel my Pizza please
-  * How do I cancel my order?
-  * I don't want my Pizza anymore
-  * I really don't want the Pizza anymore
-  * I'd like to cancel my order please
-  * Its been more than 20 mts. Please cancel my order and issue a refund to my card.
-  * Need to cancel my order
-  * Please cancel my pizza order
-  * Please don't deliver my Pizza
+```
+Can i cancel my order?
+Cancel my order
+Cancel my Pizza please
+How do I cancel my order?
+I don't want my Pizza anymore
+I really don't want the Pizza anymore
+I'd like to cancel my order please
+Its been more than 20 mts. Please cancel my order and issue a refund to my card.
+Need to cancel my order
+Please cancel my pizza order
+Please don't deliver my Pizza
+```
 
 ### インテント(3) チャットボットのフィードバックの送信
 
-1. Click the + Intent button.
+**【ステップ 1】**
+![「＋ Intent」ボタン][button_create_intent] をクリックします。
 
-2. In the Name field, type FileComplaint.
+**【ステップ 2】**
+**「Name」** フィールドに `FileComplaint` と入力します。
 
-3. Copy the example sentences below, paste them into the Enter your example utterances here field, and press the Enter key.
+**【ステップ 3】**
+Copy the example sentences below, paste them into the Enter your example utterances here field, and press the Enter key.
 
-  * I am upset
-  * You charged me wrong
-  * I want to file a complaint
-  * I am not happy with my recent order
-  * I have some grief to share
-  * I want to speak with a manager
-  * Can I raise a complaint
+```
+I am upset
+You charged me wrong
+I want to file a complaint
+I am not happy with my recent order
+I have some grief to share
+I want to speak with a manager
+Can I raise a complaint
+```
 
 Your screen should look similar to what is shown in the image below:
 
@@ -140,15 +161,19 @@ Your screen should look similar to what is shown in the image below:
 
 ### インテントのトレーニング
 
-You've now provided the basic ingredients that allow the skill to recognize user input for ordering a pizza, but right now, the skill has no cognition. It can't understand any user input.
+You've now provided the basic ingredients that allow the skill to recognize user input for ordering a pizza, but right now, the skill has no cognition.
+It can't understand any user input.
 
 To enable it to understand the intents, you need to train it.
 
-1. Locate the **「Train」** button on the right side of the page.
+**【ステップ 1】**
+画面の右上に ![「Train」ボタン][button_train] が表示されていることを確認します。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_train-button.png)
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_train-button.png)
 
-2. Click Train, click Submit, and then wait a few seconds for the training to complete.
+**【ステップ 2】**
+![「Train」ボタン][button_train] をクリックすると **「Train」** ボックスが表示されます。
+**「Submit」** ボタンをクリックして数秒待つとトレーニングは完了です。
 
 ## モデルのテスト
 
@@ -157,15 +182,24 @@ Good intent models are created in an iterative cycle of training, testing, retra
 
 A good intent model is one that has a low ambiguity between the different intents. So let's see how well we’re doing so far.
 
-1. Click **「Intents」**
+**【ステップ 1】**
+![「Intents」アイコン][icon_intents_enabled] をクリックします。
 
-2. Click the **「Try It Out!」** label.
-  The Try Out Intents/Q&A dialog appears.
+**【ステップ 2】**
+画面の右上の方にある **「Try It Out!」** リンクをクリックします。
 
-3. In the **「Message」** field of the dialog, type `I want to order pizza` and click the **「Send」** button.
-  As you might expect, the result is as shown in the image below.
+画面の右側に **「Try Out Intents/Q&A」** ボックスが表示されます。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-out1.png)
+**【ステップ 3】**
+**「Try Out Intents/Q&A」** ボックスの一番下にある **「Message」** フィールドに次の文を入力します。
+
+```
+I want to order pizza
+```
+
+**「Send」** ボタンをクリックすると、**「Try Out Intents/Q&A」** ボックスは次のように表示されます。
+
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-out1.png)
 
 4. Next try `I feel like eating some pizza`.
   This should also resolve to the OrderPizza intent.
@@ -756,3 +790,10 @@ Now that all of the skill's pieces are in place, let's test its behavior.
   This time the topping menu and the delivery time should be skipped, but the pizza size list should be displayed.
 
 Congratulations! You have created your first skill and learned key aspects of defining intents, defining entities, designing the conversation flow, and using the tester to evaluate intent resolution and the conversation flow.
+
+<!--- Designer UI のアイコンの画像へのリファレンス -->
+[icon_hamburger]:         images/icon_hamburger.png         "ハンバーガー・アイコン"
+[icon_intents_enabled]:   images/icon_intents_enabled.png   "「Intents」アイコン"
+[icon_intents_selected]:  images/icon_intents_selected.png  "「Intents」アイコン"
+[button_create_intent]:   images/button_create_intent.png   "「＋ Intent」ボタン"
+[button_train]:           images/button_train.png           "「Train」ボタン"
