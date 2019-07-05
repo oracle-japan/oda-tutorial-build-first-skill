@@ -89,20 +89,18 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 Copy the example sentences below, paste them into the Enter your example utterances here field, and press the Enter key.
 (Yes, you can paste all of them at once.)
 
-```
-Would you happen to have thin crust options on your Pizzas?
-Let's order a cheese pizza
-Would love a large Pepperoni please!
-I feel like eating some pizza
-I would like to order a pizza
-Can I order a Pizza?
-What's on the menu today?
-I want pizza
-Do you server gluten-free pizza?
-I want to order pizza for lunch
-Do you have deep dish pizzas available?
-Order Pizza!
-```
+* Would you happen to have thin crust options on your Pizzas?
+* Let's order a cheese pizza
+* Would love a large Pepperoni please!
+* I feel like eating some pizza
+* I would like to order a pizza
+* Can I order a Pizza?
+* What's on the menu today?
+* I want pizza
+* Do you server gluten-free pizza?
+* I want to order pizza for lunch
+* Do you have deep dish pizzas available?
+* Order Pizza!
 
 You'll notice that it's fine for utterances to have inconsistent punctuation and capitalization.
 
@@ -117,40 +115,17 @@ You'll notice that it's fine for utterances to have inconsistent punctuation and
 **【ステップ 3】**
 Copy the example sentences below, paste them into the Enter your example utterances here field, [Enter] キーを押します。
 
-```
-Can i cancel my order?
-Cancel my order
-Cancel my Pizza please
-How do I cancel my order?
-I don't want my Pizza anymore
-I really don't want the Pizza anymore
-I'd like to cancel my order please
-Its been more than 20 mts. Please cancel my order and issue a refund to my card.
-Need to cancel my order
-Please cancel my pizza order
-Please don't deliver my Pizza
-```
-
-### インテント(3) チャットボットのフィードバックの送信
-
-**【ステップ 1】**
-![「＋ Intent」ボタン][button_create_intent] をクリックします。
-
-**【ステップ 2】**
-**「Name」** フィールドに `FileComplaint` と入力します。
-
-**【ステップ 3】**
-Copy the example sentences below, paste them into the Enter your example utterances here field, and press the Enter key.
-
-```
-I am upset
-You charged me wrong
-I want to file a complaint
-I am not happy with my recent order
-I have some grief to share
-I want to speak with a manager
-Can I raise a complaint
-```
+* Can i cancel my order?
+* Cancel my order
+* Cancel my Pizza please
+* How do I cancel my order?
+* I don't want my Pizza anymore
+* I really don't want the Pizza anymore
+* I'd like to cancel my order please
+* Its been more than 20 mts. Please cancel my order and issue a refund to my card.
+* Need to cancel my order
+* Please cancel my pizza order
+* Please don't deliver my Pizza
 
 Your screen should look similar to what is shown in the image below:
 
@@ -171,9 +146,12 @@ To enable it to understand the intents, you need to train it.
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_train-button.png)
 
+**「Train」** ボタンにはエクスクラメーション・マークのアイコンが表示されており、トレーニングが必要なことを表しています。
+
 **【ステップ 2】**
 ![「Train」ボタン][button_train] をクリックすると **「Train」** ボックスが表示されます。
-**「Submit」** ボタンをクリックして数秒待つとトレーニングは完了です。
+**「Submit」** ボタンをクリックして数秒待つとトレーニングは完了します。
+トレーニングが完了すると **「Train」** ボタンのアイコンがチェック・マークに変わります。
 
 ## モデルのテスト
 
@@ -201,59 +179,60 @@ I want to order pizza
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-out1.png)
 
-4. Next try `I feel like eating some pizza`.
-  This should also resolve to the OrderPizza intent.
+`I want to order pizza` は、インテント OrderPizza に該当するという判定をしています。
+**「Confidence」** のスコア（今回の場合は「100%」）は、インテント判定エンジンが結果に対する自信を数値化したものです。
 
-5. Now try `Cancel my order?`.
-  This should resolve to the CancelPizza intent.
+**【ステップ 4】**
+別の文でテストを行います。
+次の文を **「Try Out Intents/Q&A」** ボックスの **「Message」** フィールドに入力したら、**「Send」** ボタンをクリックします。
 
-6. And now try `Dude, bring me pizza` and see what that resolves to.
+```
+I feel like eating some pizza
+```
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out2.png)
+ステップ 3 で実行したテストと同様に、インテント OrderPizza と判定されます。
 
-  As you can see, the intent engine is (correctly) most confident that the user wants to create an order, but not by a particularly high margin.
+**【ステップ 5】**
+次の文をテストします。今回は、インテント CancelPizza と判定されます。
 
-  The sentence "Dude, bring me pizza" deserves a higher confidence score, so we should add it to the list of utterances.
+```
+Cancel my order?
+```
 
-7. Click **「Add Example」** to add it.
+**【ステップ 6】**
+次の文をテストします。
 
-8. Click **「Train」** button to retrain the model.
+```
+Dude, bring me pizza
+```
 
-9. Again enter `Dude, bring me pizza` in the **「Message」** field and click **「Send」**.
-  The confidence score should be much higher for OrderPizza (possibly even 100%).
+**「Try Out Intents/Q&A」** ボックスには次のように表示されます。
 
-  > ***Note:***
-  > Conversational AI does not compare input by exact matches of the words.
-  > Though "Dude, bring me pizza" is available as an utterance, when entering the sentence as a message, it is the intent model's algorithm that determines the matching intent.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out2.png)
 
-10. Type `You are expensive and you still don't deliver on time` in the **「Message」** field and click **「Send」**.
+上の図のとおり、インテント判定エンジンは `Dude, bring me pizza` （日本語訳: 「おい、ピザを持ってきて」）という文はインテント OrderPizza である可能性が最も高いと判定しています。
+しかし、**「Confidence」** のスコアはそれほど高くありません。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out3.png)
+**【ステップ 7】**
+インテント判定エンジンの結果は正しいけれど Confidence のスコアが高くない場合は、テストに使用した文をインテントの例文として追加します。
+**「OrderPizza」** を選択した状態で **「Add Example」** ボタンをクリックすると、`Dude, bring me pizza` がインテント OrderPizza に例文として追加されます。
 
-  In all likelihood, the FileComplaint intent did not receive the highest score.
-  In the above screenshot, OrderPizza "won", though it's also possible that CancelPizza could get the highest score.
+**【ステップ 8】**
+インテントの例文を追加したので、トレーニングの実行が必要になりました。
+画面右上の ![「Train」ボタン][button_train] をクリックしてトレーニングを実行します。
 
-11. To help remedy this, in the FileComplaint intent row of the dialog, select the radio button and then click the **「Add Example」** button to add the utterance to the FileComplaint intent.
+**【ステップ 9】**
+もう一度 `Dude, bring me pizza` という文をテストしてみます。
+例文として追加されたので、インテント OrderPizza の Confidence のスコア上がっていることを確認します。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out4.png)
+> ***Note:***
+> Conversational AI does not compare input by exact matches of the words.
+> Though "Dude, bring me pizza" is available as an utterance, when entering the sentence as a message, it is the intent model's algorithm that determines the matching intent.
 
-  > ***Note:***
-  > In these examples, you might get slightly different confidence scores than what are shown here.
-  > And in some cases, the matching intents themselves could vary, should the differing confidence scores push those intents above or below the given confidence thresholds.
-  > The cause of this variance is the non-deterministic nature of the AI behind the natural language processing and the fact that these skills have a limited number of training utterances (in order to make the lab simpler).
-
-12. Retrain the skill.
-
-  > ***Note:***
-  > For us humans it is easy to see that "You are expensive and you still don't deliver on time" is not an order but a complaint.
-  > However, a skill first needs to be trained before it is able to gain the same understanding.
-  > The NLP model in this lab is not trained with a lot of data, so it's more likely to make mistakes.
-
-13. Think of two or three more phrases that the system might have problems matching to an intent with high confidence and try them in the Intent tester.
-
-  If you find one that doesn’t match well, select the intent that it should be resolved to and click **「Add Example」**.
-
-14. Train the model again and then re-test.
+> ***Note:***
+> In these examples, you might get slightly different confidence scores than what are shown here.
+> And in some cases, the matching intents themselves could vary, should the differing confidence scores push those intents above or below the given confidence thresholds.
+> The cause of this variance is the non-deterministic nature of the AI behind the natural language processing and the fact that these skills have a limited number of training utterances (in order to make the lab simpler).
 
 ### このセクションで実施したことのまとめ
 
@@ -394,15 +373,17 @@ We'll add context variables to hold values returned by the intent engine, entity
 
 4. Under `variables:`, add these five context variables:
 
-           iResult: "nlpresult"
-           pizzaSize: "PizzaSize"
-           pizzaTopping: "PizzaTopping"
-           deliveryTime: "TIME"
-           pizzaOrderMsg: "string"
+```yaml
+      iResult: "nlpresult"
+      pizzaSize: "PizzaSize"
+      pizzaTopping: "PizzaTopping"
+      deliveryTime: "TIME"
+      pizzaOrderMsg: "string"
+```
 
-  > ***Note:***
-  > Make sure that they are indented two spaces more than the `variables:` (four spaces total).
-  > If the indentation isn’t exact, metadata validation will fail.
+> ***Note:***
+> Make sure that they are indented two spaces more than the `variables:` (four spaces total).
+> If the indentation isn’t exact, metadata validation will fail.
 
   This is what the flow should now look like:
 
@@ -432,6 +413,7 @@ This component evaluates user input to determine the user intent, extracts all o
   This means that iResult will be the variable to which the NLP engine saves the intent resolution and entity extraction results to.
 
 6. Delete the following properties:
+
   * botName
   * botVersion
   * sourceVariable
@@ -440,12 +422,13 @@ This component evaluates user input to determine the user intent, extracts all o
 
 7. Update transition actions so that it looks like the following:
 
-           transitions:
-             actions:
-               OrderPizza: "startOrderPizza"
-               CancelPizza: "cancelPizza"
-               FileComplaint: "fileComplaint"
-               unresolvedIntent: "startUnresolved"
+```yaml
+    transitions:
+      actions:
+        OrderPizza: "startOrderPizza"
+        CancelPizza: "cancelPizza"
+        unresolvedIntent: "startUnresolved"
+```
 
 ### 各インテントの処理を開始するステートの追加
 
@@ -479,17 +462,6 @@ To save you some time, the states are provided in a text document for you to cop
     component: "System.Output"
     properties:
       text: "I am sorry to hear this. Let me take your cancellation request."
-    transitions:
-      return : "done"
-```
-
-#### チャットボットのフィードバック
-
-```yaml
-  fileComplaint:
-    component: "System.Output"
-    properties:
-      text: "I am sorry to hear this. Let me take your complaint details."
     transitions:
       return : "done"
 ```
@@ -620,7 +592,7 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
 
 8. Edit the state to look like the following:
 
-  ```yaml
+```yaml
   setPizzaSize:
     component: "System.List"
     properties:
@@ -630,7 +602,7 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
       nlpResultVariable: "iResult"
     transitions:
       next: "setPizzaTopping"
-  ```
+```
 
 #### ピザのトッピングの指定
 
@@ -666,23 +638,23 @@ Below the setPizzaSize state, paste the following code (also based on the System
 
 8. Edit the state to look like the following:
 
-  ```yaml
-    setPizzaDeliveryTime:
-      component: "System.Text"
-      properties:
-        prompt: "When can we deliver that for you?"
-        variable: "deliveryTime"
-        nlpResultVariable: "iResult"
-        maxPrompts: 3
-      transitions:
-        actions:
-          cancel: "maxError"
-          next: "setPizzaOrderMessage"
-  ```
+```yaml
+  setPizzaDeliveryTime:
+    component: "System.Text"
+    properties:
+      prompt: "When can we deliver that for you?"
+      variable: "deliveryTime"
+      nlpResultVariable: "iResult"
+      maxPrompts: 3
+    transitions:
+      actions:
+        cancel: "maxError"
+        next: "setPizzaOrderMessage"
+```
 
 #### 注文内容の確認メッセージの生成
 
-1. Click a screenshot of the Add Component button.
+1. Click [Components] of the Add Component button.
 
 2. Select the Variables category.
 
@@ -698,16 +670,16 @@ Below the setPizzaSize state, paste the following code (also based on the System
 
 8. Edit the state to look like the following:
 
-  ```yaml
-    setPizzaOrderMessage:
-      component: "System.SetVariable"
-      properties:
-        variable: "pizzaOrderMsg"
-        value:
-        - "Thank you for ordering from Pizza King!"
-        - "OK, so we are getting you the following items:"
-        - "A ${pizzaSize.value} ${pizzaTopping.value} pizza at ${deliveryTime.value.date?long?number_to_time?string('HH:mm')}."
-  ```
+```yaml
+  setPizzaOrderMessage:
+    component: "System.SetVariable"
+    properties:
+      variable: "pizzaOrderMsg"
+      value:
+      - "Thank you for ordering from Pizza King!"
+      - "OK, so we are getting you the following items:"
+      - "A ${pizzaSize.value} ${pizzaTopping.value} pizza at ${deliveryTime.value.date?long?number_to_time?string('HH:mm')}."
+```
 
   > Note:
   > The `text` property value uses the Apache FreeMarker expression |- to print multi-line text in a single response bubble.
@@ -731,17 +703,17 @@ Below the setPizzaSize state, paste the following code (also based on the System
 
 8. Edit the state to look like the following:
 
-  ```yaml
-    showPizzaOrder:
-      component: "System.Output"
-      properties:
-        text: |-
-               <#list pizzaOrderMsg.value as text>${text}
+```yaml
+  showPizzaOrder:
+    component: "System.Output"
+    properties:
+      text: |-
+             <#list pizzaOrderMsg.value as text>${text}
 
-               </#list>
-      transitions:
-        return: "done"
-  ```
+             </#list>
+    transitions:
+      return: "done"
+```
 
 ### ダイアログ・フローの検証
 
