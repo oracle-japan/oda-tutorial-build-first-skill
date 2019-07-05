@@ -35,12 +35,12 @@ So the first thing you'll do is create a new skill.
 Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
 画面左上の ![ハンバーガー・アイコン][icon_hamburger] をクリックしてメニューを開きます。
 
-![Oracle Digital Assistant Designer UI](images/designer_home-01.png "Oracle Digital Assistant の Designer UI でハンバーガー・アイコンをクリック")
+<!-- ![Oracle Digital Assistant Designer UI](images/designer_home-01.png "Oracle Digital Assistant の Designer UI でハンバーガー・アイコンをクリック") -->
 
 **【ステップ 2】**
 メニューから **「Develpment」** をクリックし、 **「Skills」** を選択します。
 
-![Oracle Digital Assistant Designer UI](images/designer_home-02.png "Designer UI のメニューから「Development」→「Skills」を選択")
+<!-- ![Oracle Digital Assistant Designer UI](images/designer_home-02.png "Designer UI のメニューから「Development」→「Skills」を選択") -->
 
 **【ステップ 3】**
 メニューを閉じるために、 ![ハンバーガー・アイコン][icon_hamburger] をもう一度クリックします。
@@ -74,13 +74,13 @@ For the skill to understand what it should react to, you need to define intents 
 
 For the PizzaKing example, you will create intents for ordering pizza, cancelling an order, and filing a complaint.
 
-### インテント(1) ピザの注文
+### インテントの作成 (1) OrderPizza
 
 **【ステップ 1】**
 Designer UI の画面左側のナビゲーションで ![「Intents」アイコン][icon_intents_selected] が選択されていることを確認します。
 
 **【ステップ 2】**
-![「＋ Intent」ボタン][button_create_intent] をクリックします。
+![「+ Intent」ボタン][button_create_intent] をクリックします。
 
 **【ステップ 3】**
 **「Name」** フィールドに `OrderPizza` と入力します。
@@ -102,12 +102,10 @@ Copy the example sentences below, paste them into the Enter your example utteran
 * Do you have deep dish pizzas available?
 * Order Pizza!
 
-You'll notice that it's fine for utterances to have inconsistent punctuation and capitalization.
-
-### インテント(2) 注文したピザのキャンセル
+### インテントの作成 (2) CancelPizza
 
 **【ステップ 1】**
-![「＋ Intent」ボタン][button_create_intent] をクリックします。
+![「+ Intent」ボタン][button_create_intent] をクリックします。
 
 **【ステップ 2】**
 **「Name」** フィールドに `CancelPizza` と入力します。
@@ -127,7 +125,7 @@ Copy the example sentences below, paste them into the Enter your example utteran
 * Please cancel my pizza order
 * Please don't deliver my Pizza
 
-Your screen should look similar to what is shown in the image below:
+インテント CancelPizza が追加されると、Designer UI には次のように表示されます。
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_pizza-intents.png)
 
@@ -234,7 +232,7 @@ Dude, bring me pizza
 > And in some cases, the matching intents themselves could vary, should the differing confidence scores push those intents above or below the given confidence thresholds.
 > The cause of this variance is the non-deterministic nature of the AI behind the natural language processing and the fact that these skills have a limited number of training utterances (in order to make the lab simpler).
 
-### このセクションで実施したことのまとめ
+### このセクションのまとめ
 
 In this part of the tutorial, you have tested the quality of your intent training with the goal being to ensure a high level of confidence when resolving intents.
 
@@ -254,41 +252,67 @@ For example, the user input "I'd like to order a small meaty pizza at 9:00 pm" c
 We'll create custom entities for size and topping and later use a built-in entity for time.
 While we're at it, we'll add some synonyms (including some common misspellings) that optimize the entity's ability to tag words from sloppy user input.
 
-### エンティティ(1) ピザのサイズ
+### エンティティの作成 (1) PizzaSize
 
-1. In the left navigation for the designer, select **「Entities」**.
+**【ステップ 1】**
+Designer UI の画面左側のナビゲーションで ![「Entities」アイコン][icon_entities_enabled] をクリックします。
+エンティティを作成・編集するための画面が表示されます。
 
-2. Click [+ Entity] to create a new entity.
+**【ステップ 2】**
+新しいエンティティを作成するために、![「+ Entitiy」ボタン][button_create_entity] をクリックします。
 
-3. In the **「Name」** field, change the value to `PizzaSize`.
+**【ステップ 3】**
+**「Name」** フィールドにはデフォルトの値がセットされていますが、`PizzaSize` に変更します。
 
-4. In the Configuration section, in the **「Type」** dropdown, select **「Value list」**.
+**【ステップ 4】**
+**「Configuration」** セクションのドロップダウン・リスト **「Type」** から **「Value list」** を選択します。
 
-5. Click [+ Value].
+**【ステップ 5】**
+![「+ Value」ボタン][button_create_value] をクリックします。
+**「Create Value」** ボックスが表示されます。
 
-6. For **「Value」**, type `Small`.
+**【ステップ 6】**
+**「Value」** フィールドに `Small` と入力します。
 
-7. For **「Synonyms」**, type `Personal`, press [Tab], and type `smallest`.
+**【ステップ 7】**
+**「Synonyms」** フィールドに `Personal` と入力したら、キーボードの [Tab] キーを押します。
+次に `smallest` を入力します。
 
-8. Click **「Create」**.
+**【ステップ 8】**
+**「Create Value」** ボックスの **「Create」** ボタンをクリックします。
 
-9. Following the pattern in the previous four steps, add the value `Medium` and the synomym `middle`.
+**【ステップ 9】**
+ステップ5～8の手順を繰り返して、エンティティ PizzaSize に次の値を追加します。
 
-10. Following the same pattern, add the value `Large` and the synomyms `Big`, `grande`, and `biggest`.
+| Value | Synonyms |
+|-------|----------|
+| `Medium` | `middle` |
+| `Large` | `Big`, `grande`, `biggest` |
 
-### エンティティ(2) ピザのトッピング
+### エンティティの作成 (2) PizzaSize
 
-1. Click [+ Entity] to create a new entity.
+**【ステップ 1】**
+新しいエンティティを作成するために、![「+ Entitiy」ボタン][button_create_entity] をクリックします。
 
-2. In the **「Name」** field, change the value to `PizzaTopping`.
+**【ステップ 2】**
+**「Name」** フィールドの値を `PizzaType` に変更します。
 
-3. In the **「Configuration」** section, in the **「Type」** dropdown, select **「Value list」**.
+**【ステップ 3】**
+**「Configuration」** セクションのドロップダウン・リスト **「Type」** から **「Value list」** を選択します。
 
-4. Add values for `Meaty`, `Veggie`, `Hot and Spicy`, and `American Hot`.
+**【ステップ 4】**
+**「Value」** として、次の4つを追加します。
 
-  Your list of entities should look like what is shown in this figure:
+| Value | Synonyms |
+|-------|----------|
+| `Meaty` |   |
+| `Veggie` |   |
+| `Hot and Spicy` |   |
+| `American Hot` |   |
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_pizza-entities.png)
+エンティティが作成されると、Designer UI には次のように表示されます。
+
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_pizza-entities.png)
 
 ### インテントとエンティティの関連付け
 
@@ -340,7 +364,7 @@ The Try It Out feature enables you to test whether the skill identifies entity v
 
   ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out6.png)
 
-### このセクションで実施したことのまとめ
+### このセクションのまとめ
 
 In this part of the tutorial, you have created custom entities for the PizzaKing OrderPizza intent, associated the entities with the intent, and tested the entity recognition in the embedded skill tester.
 
@@ -391,7 +415,7 @@ We'll add context variables to hold values returned by the intent engine, entity
 
   Now we're ready to add some states.
 
-### ユーザーの意図を判定するステートの追加
+### インテントを判定するステートの追加
 
 First we'll add the `System.Intent` component.
 This component evaluates user input to determine the user intent, extracts all of the entities, and then triggers a subsequent state.
@@ -414,11 +438,11 @@ This component evaluates user input to determine the user intent, extracts all o
 
 6. Delete the following properties:
 
-  * botName
-  * botVersion
-  * sourceVariable
-  * autoNumberPostbackActions
-  * footerText
+* botName
+* botVersion
+* sourceVariable
+* autoNumberPostbackActions
+* footerText
 
 7. Update transition actions so that it looks like the following:
 
@@ -765,7 +789,11 @@ Congratulations! You have created your first skill and learned key aspects of de
 
 <!--- Designer UI のアイコンの画像へのリファレンス -->
 [icon_hamburger]:         images/icon_hamburger.png         "ハンバーガー・アイコン"
+[icon_entities_enabled]:  images/icon_intents_enabled.png   "「Entities」アイコン"
+[icon_entities_selected]: images/icon_intents_selected.png  "「Entities」アイコン"
 [icon_intents_enabled]:   images/icon_intents_enabled.png   "「Intents」アイコン"
 [icon_intents_selected]:  images/icon_intents_selected.png  "「Intents」アイコン"
-[button_create_intent]:   images/button_create_intent.png   "「＋ Intent」ボタン"
+[button_create_entity]:   images/button_create_entity.png   "「+ Entity」ボタン"
+[button_create_intent]:   images/button_create_intent.png   "「+ Intent」ボタン"
+[button_create_value]:    images/button_create_value.png    "「+ Value」ボタン"
 [button_train]:           images/button_train.png           "「Train」ボタン"
