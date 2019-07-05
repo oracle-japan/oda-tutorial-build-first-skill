@@ -86,8 +86,8 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 **「Name」** フィールドに `OrderPizza` と入力します。
 
 **【ステップ 4】**
-Copy the example sentences below, paste them into the Enter your example utterances here field, and press the Enter key.
-(Yes, you can paste all of them at once.)
+次の箇条書きで表示されている文をコピーし、イタリック対で ***「Enter your example utterances here.」*** と書かれたフィールドに貼り付けたら、キーボードの [Enter] を押します。
+複数の文をまとめてコピーし、一度に貼り付けることができます。
 
 * Would you happen to have thin crust options on your Pizzas?
 * Let's order a cheese pizza
@@ -102,6 +102,8 @@ Copy the example sentences below, paste them into the Enter your example utteran
 * Do you have deep dish pizzas available?
 * Order Pizza!
 
+12の例文が追加されることを確認します。
+
 ### インテントの作成 (2) CancelPizza
 
 **【ステップ 1】**
@@ -111,7 +113,7 @@ Copy the example sentences below, paste them into the Enter your example utteran
 **「Name」** フィールドに `CancelPizza` と入力します。
 
 **【ステップ 3】**
-Copy the example sentences below, paste them into the Enter your example utterances here field, [Enter] キーを押します。
+次の箇条書きで表示されている文をコピーし、イタリック対で ***「Enter your example utterances here.」*** と書かれたフィールドに貼り付けたら、キーボードの [Enter] を押します。
 
 * Can i cancel my order?
 * Cancel my order
@@ -125,7 +127,7 @@ Copy the example sentences below, paste them into the Enter your example utteran
 * Please cancel my pizza order
 * Please don't deliver my Pizza
 
-インテント CancelPizza が追加されると、Designer UI には次のように表示されます。
+11の例文が追加され、Designer UI には次のように表示されます。
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_pizza-intents.png)
 
@@ -159,7 +161,7 @@ Good intent models are created in an iterative cycle of training, testing, retra
 A good intent model is one that has a low ambiguity between the different intents. So let's see how well we’re doing so far.
 
 **【ステップ 1】**
-![「Intents」アイコン][icon_intents_enabled] をクリックします。
+Designer UI のインテントの編集ページが表示されていない場合は、画面左側のナビゲーションの ![「Intents」アイコン][icon_intents_enabled] をクリックします。
 
 **【ステップ 2】**
 画面の右上の方にある **「Try It Out!」** リンクをクリックします。
@@ -223,6 +225,9 @@ Dude, bring me pizza
 もう一度 `Dude, bring me pizza` という文をテストしてみます。
 例文として追加されたので、インテント OrderPizza の Confidence のスコア上がっていることを確認します。
 
+**【ステップ 10】**
+テストが終わったら、![「Close」ボタン][button_close_try_it_out] をクリックして、**「Try Out Intents/Q&A」** ボックスを閉じます。
+
 > ***Note:***
 > Conversational AI does not compare input by exact matches of the words.
 > Though "Dude, bring me pizza" is available as an utterance, when entering the sentence as a message, it is the intent model's algorithm that determines the matching intent.
@@ -282,7 +287,7 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 **「Create Value」** ボックスの **「Create」** ボタンをクリックします。
 
 **【ステップ 9】**
-ステップ5～8の手順を繰り返して、エンティティ PizzaSize に次の値を追加します。
+ステップ5～8の操作を繰り返して、エンティティ PizzaSize に次の値を追加します。
 
 | Value | Synonyms |
 |-------|----------|
@@ -319,50 +324,73 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 For an entity to be recognized when parsing the user input message, it needs to be associated with an intent.
 So let’s associate our entities with the appropriate intents:
 
-1. In the left navigation for the designer, select **「Intents」**.
+**【ステップ 1】**
+インテントを編集するために、Designer UI の画面左側のナビゲーションの ![「Intents」アイコン][icon_intents_enabled] をクリックします。
 
-2. Select the OrderPizza intent.
+**【ステップ 2】**
+インテントの一覧から **「OrderPizza」** を選択します。
 
-3. Click [+ Entity] (in the upper right side of the page).
+**【ステップ 3】**
+画面右側に表示される ![「+ Entity」ドロップダウン・ボタン][button_intent_entities] をクリックします。
 
-4. Select the PizzaSize entity.
+**【ステップ 4】**
+エンティティの一覧の中から **「PizzaSize」** を選択します。
 
-5. Repeat the previous two steps for the PizzaTopping and TIME entities.
-  (TIME is a built-in entity that we'll use to help the skill process input for pizza delivery time.)
+**【ステップ 5】**
+ステップ3～4の操作を繰り返して、次の２つのエンティティを追加します。
 
-6. Retrain the model by clicking [! Train].
+* PizzaType
+* TIME
 
-  The entity list associated with the OrderPizza intent should look like what is shown in the image below (though the order may be different):
+エンティティ TIME は、Oracle Digital Assistant が提供するビルトインのエンティティのひとつです。
+今回は、ピザの配達時間を指定するために使用します。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_entity-list.png)
+ここまでの操作によって、インテント OrderPizza に関連付けられたエンティティは次のように表示されます（実際の画面と表示される順番が異なることがありますが、特に問題はありません）。
+
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_entity-list.png)
+
+**【ステップ 6】**
+インテントにエンティティが関連付けられたので、トレーニングが必要になります。
+画面右上の ![「Train」ボタン][button_train] をクリックしてトレーニングを実行します。
 
 ### エンティティのテスト
 
 The Try It Out feature enables you to test whether the skill identifies entity values in user input.
 
-1. In the left navigation for the designer, select **「Intents」**.
+**【ステップ 1】**
+Designer UI の画面左側のナビゲーションで ![「Intents」アイコン][icon_intents_selected] を選択します。
 
-2. Click [Try It Out!].
+**【ステップ 2】**
+**「Try It Out!」** をクリックして、**「Try Out Intents/Q&A」** ボックスを開きます。
 
-3. In the **「Message」** field of the dialog, type `I want to order a small hot and spicy pizza at 7:30 pm` and click **「Send」**.
+**【ステップ 3】**
+**「Try Out Intents/Q&A」** ボックスの **「Message」** フィールドに、次の文を入力します。
 
-  You should see a table showing entities and the values extracted from the input.
+```
+I want to order a small hot and spicy pizza at 7:30 pm
+```
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out5.png)
+**「Send」** ボタンをクリックすると、入力された文から３つのエンティティ（PizzaSize、PizzaType、TIME）が抽出され、**「Try Out Intents/Q&A」** ボックスには次のように表示されます。
 
-  > ***Note:***
-  > You may need to scroll up in the dialog to see the entities.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out5.png)
 
-  Since the entities are recognized in the user input, the skill doesn’t have to ask the user for that information later in the flow.
+> ***Note:***
+> You may need to scroll up in the dialog to see the entities.
 
-  Now let's try another one.
+Since the entities are recognized in the user input, the skill doesn’t have to ask the user for that information later in the flow.
 
-4. In the **「Message」** field, now type `I want to order the biggest meaty pizza at noon` and click **「Send」**.
+**【ステップ 4】**
+他の例についても試してみましょう。
+**「Try Out Intents/Q&A」** ボックスの **「Message」** フィールドに次の文を入力し、**「Send」** ボタンをクリックします。
 
-  The result should look like what is shown below and thus prove that the PizzaSize entity shows the right value for the biggest synonym.
-  Also "noon" is properly interpreted as 12:00 p.m.
+```
+I want to order the biggest meaty pizza at noon`
+```
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out6.png)
+The result should look like what is shown below and thus prove that the PizzaSize entity shows the right value for the biggest synonym.
+Also "noon" is properly interpreted as 12:00 p.m.
+
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out6.png)
 
 ### このセクションのまとめ
 
@@ -519,15 +547,15 @@ If you have gotten into a jam and can’t get anything to work, open the [your-f
 Before moving further, let's take a look at some settings that are useful for fine-tuning intent resolution.
 
 * **Confidence Threshold**:
-  The skill uses this property to steer the conversation by the confidence level of the resolved intent.
-  Set the minimum confidence level required to match an intent.
-  When the level falls below this minimum value, the component triggers its unresolvedIntent action.
+The skill uses this property to steer the conversation by the confidence level of the resolved intent.
+Set the minimum confidence level required to match an intent.
+When the level falls below this minimum value, the component triggers its unresolvedIntent action.
 
 * **Confidence Win Margin**:
-  When a skill can’t determine a specific intent, it displays a list of possible intents and prompts the user to choose one.
-  This property helps the skill determine what intents should be in the list.
-  Set the maximum level to use for the delta between the respective confidence levels for the top intents.
-  The list includes the intents that are greater than or equal to this delta and exceed the value set for the Confidence Threshold.
+When a skill can’t determine a specific intent, it displays a list of possible intents and prompts the user to choose one.
+This property helps the skill determine what intents should be in the list.
+Set the maximum level to use for the delta between the respective confidence levels for the top intents.
+The list includes the intents that are greater than or equal to this delta and exceed the value set for the Confidence Threshold.
 
 Let's update these settings:
 
@@ -788,12 +816,14 @@ Now that all of the skill's pieces are in place, let's test its behavior.
 Congratulations! You have created your first skill and learned key aspects of defining intents, defining entities, designing the conversation flow, and using the tester to evaluate intent resolution and the conversation flow.
 
 <!--- Designer UI のアイコンの画像へのリファレンス -->
-[icon_hamburger]:         images/icon_hamburger.png         "ハンバーガー・アイコン"
-[icon_entities_enabled]:  images/icon_intents_enabled.png   "「Entities」アイコン"
-[icon_entities_selected]: images/icon_intents_selected.png  "「Entities」アイコン"
-[icon_intents_enabled]:   images/icon_intents_enabled.png   "「Intents」アイコン"
-[icon_intents_selected]:  images/icon_intents_selected.png  "「Intents」アイコン"
-[button_create_entity]:   images/button_create_entity.png   "「+ Entity」ボタン"
-[button_create_intent]:   images/button_create_intent.png   "「+ Intent」ボタン"
-[button_create_value]:    images/button_create_value.png    "「+ Value」ボタン"
-[button_train]:           images/button_train.png           "「Train」ボタン"
+[icon_hamburger]:           images/icon_hamburger.png           "ハンバーガー・アイコン"
+[icon_entities_enabled]:    images/icon_intents_enabled.png     "「Entities」アイコン"
+[icon_entities_selected]:   images/icon_intents_selected.png    "「Entities」アイコン"
+[icon_intents_enabled]:     images/icon_intents_enabled.png     "「Intents」アイコン"
+[icon_intents_selected]:    images/icon_intents_selected.png    "「Intents」アイコン"
+[button_close_try_it_out]:  images/button_close_try_it_out.png  "「Close」ボタン"
+[button_create_entity]:     images/button_create_entity.png     "「+ Entity」ボタン"
+[button_create_intent]:     images/button_create_intent.png     "「+ Intent」ボタン"
+[button_create_value]:      images/button_create_value.png      "「+ Value」ボタン"
+[button_intent_entities]:   images/button_create_value.png      "「+ Entity」ドロップダウン・ボタン"
+[button_train]:             images/button_train.png             "「Train」ボタン"
