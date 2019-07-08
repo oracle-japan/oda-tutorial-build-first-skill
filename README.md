@@ -413,58 +413,76 @@ Context variables are the skill's temporary memory.
 They can be referenced throughout the dialog flow.
 We'll add context variables to hold values returned by the intent engine, entity values, and the value for the pizza order message.
 
-1. In the left navigation for the designer, click [Flows] icon to open the dialog flow editor.
+**【ステップ 1】**
+Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_enabled] をクリックし、ダイアログ・フロー・エディタを開きます。
 
-2. Delete all content betwenn the `variables` and `states` elements.
+**【ステップ 2】**
+`variables:` と `states:` の間の行を削除します。<!-- 具体的な行番号を書く -->
 
-3. Delete all content below the `states` element.
+**【ステップ 3】**
+`states:` より下の行を削除します。
 
-  That should leave you the following remaining code:
+ダイアログ・フロー・エディタは次は次のように表示されます。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_dialog-flow1.png)
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_dialog-flow1.png)
 
-4. Under `variables:`, add these five context variables:
+**【ステップ 4】**
+`variables:` の行の下に次の5行を追加します。
 
 ```yaml
-      iResult: "nlpresult"
-      pizzaSize: "PizzaSize"
-      pizzaTopping: "PizzaTopping"
-      deliveryTime: "TIME"
-      pizzaOrderMsg: "string"
+    iResult: "nlpresult"
+    pizzaSize: "PizzaSize"
+    pizzaType: "PizzaType"
+    deliveryTime: "TIME"
+    pizzaOrderMsg: "string"
 ```
 
 > ***Note:***
-> Make sure that they are indented two spaces more than the `variables:` (four spaces total).
-> If the indentation isn’t exact, metadata validation will fail.
+> 追加した5行は `variables:` の行よりも半角スペース2個分多くインデントされている必要があります（合計するとスペース4個分）。
+> YAML ベースの OBotML では、インデントを使って階層構造を表現するため、正しくインデントされていないと構文エラーになります。
 
-  This is what the flow should now look like:
+ここまでの編集によって、ダイアログ・フロー・エディタには次のように表示されます。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_dialog-flow2.png)
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_dialog-flow2.png)
 
-  Now we're ready to add some states.
+これで、ダイアログ・フローにステートを追加する準備が整いました。
 
 ### インテントを判定するステートの追加
 
-First we'll add the `System.Intent` component.
-This component evaluates user input to determine the user intent, extracts all of the entities, and then triggers a subsequent state.
+このハンズオンでは最初に、ダイアログ・フローに `System.Intent` コンポーネントを追加します。
+この `System.Intent` コンポーネントは、ユーザーが送信してきた文を評価して、スキルに定義されているインテントを判定します。
+インテントにエンティティが含まれている場合はエンティティをすべて抽出してから、後続のステートに処理を遷移させます。
 
-1. Click [+ Components] to open the gallery of component templates.
+**【ステップ 1】**
+![「Components」ボタン][button_components] をクリックして、コンポーネントのテンプレート・ギャラリを開きます。
 
-2. Select **「Language」** as the component type.
+**【ステップ 2】**
+コンポーネントのテンプレート・ギャラリでは最初にコンポーネントのタイプを選択します。
+**「Language」** を選択します。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_component-gallery.png)
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_component-gallery.png)
 
-3. In the dialog, select **「Intent」** and then switch on **「Remove Comments」**.
+**【ステップ 3】**
+コンポーネントのテンプレート・ギャラリの左側にコンポーネントのリストが表示されます。
+コンポーネントのリストから **「Intent」** を選択し、**「Remove Comments」** のスイッチをオンにします。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_component-gallery-intent.png)
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_component-gallery-intent.png)
 
-4. Click **「Apply」**.
+**【ステップ 4】**
+コンポーネントのテンプレート・ギャラリの **「Apply」** ボタンをクリックします。
 
-5. In the newly added state, set the value of the `variable` property to `"iResult"` (including the quotation marks).
+**【ステップ 5】**
+`System.Intent` コンポーネントのテンプレートが追加されました。
+`System.Intent` コンポーネントの `variable` プロパティの値として `"iResult"` を設定します（ダブルコーテーション`"`が必要です）。
 
-  This means that iResult will be the variable to which the NLP engine saves the intent resolution and entity extraction results to.
+```yaml
+        variable: "iResult"
+```
 
-6. Delete the following properties:
+これによって NLP エンジンによるインテントの判定とエンティティの抽出結果が、変数 `iResult` に保存されます。
+
+**【ステップ 6】**
+テンプレートとして追加された次のプロパティは削除します。
 
 * botName
 * botVersion
@@ -472,7 +490,8 @@ This component evaluates user input to determine the user intent, extracts all o
 * autoNumberPostbackActions
 * footerText
 
-7. Update transition actions so that it looks like the following:
+**【ステップ 7】**
+次の遷移するステートを設定するため、`transition.actions` プロパティを次のように編集します。
 
 ```yaml
     transitions:
@@ -481,6 +500,14 @@ This component evaluates user input to determine the user intent, extracts all o
         CancelPizza: "cancelPizza"
         unresolvedIntent: "startUnresolved"
 ```
+
+これにより、インテントの判定結果に応じて次のステートに遷移します。
+
+| インテント | 遷移先のステート |
+|---|---|
+| OrderPizza | startOrderPizza |
+| CancelPizza | cancelPizza |
+| unresolvedIntent (該当するインテントがないと判定された場合) | startOrderPizza |
 
 ### 各インテントの処理を開始するステートの追加
 
@@ -518,7 +545,7 @@ To save you some time, the states are provided in a text document for you to cop
       return : "done"
 ```
 
-#### インテントを判定できなかった場合
+#### 該当するインテントがないと判定された場合
 
 ```yaml
   startUnresolved:
@@ -815,13 +842,16 @@ Now that all of the skill's pieces are in place, let's test its behavior.
 
 Congratulations! You have created your first skill and learned key aspects of defining intents, defining entities, designing the conversation flow, and using the tester to evaluate intent resolution and the conversation flow.
 
-<!--- Designer UI のアイコンの画像へのリファレンス -->
+<!--- Designer UI のアイコン/ボタンのスクリーンショットへのリファレンス -->
 [icon_hamburger]:           images/icon_hamburger.png           "ハンバーガー・アイコン"
-[icon_entities_enabled]:    images/icon_intents_enabled.png     "「Entities」アイコン"
-[icon_entities_selected]:   images/icon_intents_selected.png    "「Entities」アイコン"
+[icon_entities_enabled]:    images/icon_entities_enabled.png    "「Entities」アイコン"
+[icon_entities_selected]:   images/icon_entities_selected.png   "「Entities」アイコン"
+[icon_flows_enabled]:       images/icon_flows_enabled.png       "「Flows」アイコン"
+[icon_flows_selected]:      images/icon_flows_selected.png      "「Flows」アイコン"
 [icon_intents_enabled]:     images/icon_intents_enabled.png     "「Intents」アイコン"
 [icon_intents_selected]:    images/icon_intents_selected.png    "「Intents」アイコン"
 [button_close_try_it_out]:  images/button_close_try_it_out.png  "「Close」ボタン"
+[button_components]:        images/button_components.png        "「Components」ボタン"
 [button_create_entity]:     images/button_create_entity.png     "「+ Entity」ボタン"
 [button_create_intent]:     images/button_create_intent.png     "「+ Intent」ボタン"
 [button_create_value]:      images/button_create_value.png      "「+ Value」ボタン"
