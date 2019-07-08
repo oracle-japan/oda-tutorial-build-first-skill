@@ -23,7 +23,6 @@ As part of this process, you will:
 | 表記方法 | 説明 |
 |---|---|
 | **「太字」** | ボタン、各種フィールドのラベルなどの GUI 要素 |
-| _<イタリック>_ | 使用する環境などによって置き換える部分を表すプレースホルダー |
 | `固定幅フォント` | 実行するコマンド、URL、サンプルコード、入力するテキスト |
 
 ## スキルの作成
@@ -555,11 +554,10 @@ Designer UI の右上にある **「Validate」** ボタンをクリックして
     component: "System.Output"
     properties:
       text: "申し訳ありません。おっしゃっていることが理解できませんでした。"
-      keepTurn: false
     transitions:
       return: "done"
 ```
---><!-- TODO: startUnresolved.properties.keepTurn: false は必要か？ -->
+-->
 
 ### ダイアログ・フローのトラブルシューティング
 
@@ -651,12 +649,13 @@ Skill Tester の **「Message」** フィールドに次の文を入力してか
 Can you get me a radio taxi now?
 ```
 
+**【ステップ 8】**
 **「Intent/Q&A」** タブをクリックして NLP エンジンの判定結果を確認します。
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_test-intent-qa3.png)
 
-作成した2つのインテントのどちらも Confidence のスコアが 60% を超えていません。
-そのため、unresolvedIntent に対応したステート `startUnresolved` にステートが遷移しました。
+作成した2つのインテントのどちらも Confidence スコアが 60% を超えていません。
+そのため、該当するインテントがないと判定された場合 (unresolvedIntent) に対応したステート `startUnresolved` に遷移しました。
 
 ### ピザの注文を受ける会話の作成
 
@@ -665,52 +664,74 @@ In the interest of time, we'll do this just for the PizzaOrder intent.
 
 We'll complete the pizza order process by fetching the pizza size, topping, and delivery time, and then printing an order summary.
 
-1. In the dialog flow, navigate to the `startOrderPizza` state.
+1. `setPizzaSize`: ピザのサイズを選択
+2. `setPizzaType`: ピザの種類を選択
+3. `setPizzaDeliveryTime`: ピザの配達時間を指定
+4. `setPizzaOrderMessage`: 注文内容の確認メッセージの生成
+5. `showPizzaOrder`: 注文内容の確認メッセージの出力
 
-2. Change the text property's value to `"OK, lets get that order sorted"`.
+**【ステップ 1】**
+前のセクションで追加したダイアログ・フロー・エディタの `startOrderPizza` ステートにナビゲートします。
 
-3. Change the `keepTurn` value to `true`
+**【ステップ 2】**
+`keepTurn` プロパティの値を `true` に変更します。
+ブーリアン型の値 (`true` または `false` のどちらかをセットする値)は、ダブル・クォーテーション (`"`) は不要です。
 
-4. Delete the line `return: "done"`
+**【ステップ 3】**
+`transitions:` の次の行にある `return: "done"` を `next: "setPizzaSize"` に置き換えます。
 
-5. Replace the deleted line with
+```yaml
+  startOrderPizza:
+    component: "System.Output"
+    properties:
+      text: "こんにちは、Pizza King です。ご注文を承ります。"
+      keepTurn: true
+    transitions:
+      next: "setPizzaSize"
+```
 
-  ```yaml
-        next: "setPizzaSize"
-  ```
+#### ピザのサイズの選択
 
-#### ピザのサイズの指定
+**【ステップ 1】**
+![「Components」ボタン][button_components] をクリックして、コンポーネントのテンプレート・ギャラリを開きます。
 
-1. Click a screenshot of the Add Component button to open the gallery of component templates.
+**【ステップ 2】**
+コンポーネントのタイプとして **「User Interface」** を選択します。
 
-2. Select the User Interface category.
+**【ステップ 3】**
+コンポーネントのリストから **「List - set variable」** を選択します。
 
-3. Select the List – set variable template.
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_component-setvar.png)
+**【ステップ 4】**
+ドロップダウン **「Insert After」** から **「startOrderPizza」** を選択します。
 
-4. From the Insert After dropdown, select startOrderPizza.
+**【ステップ 5】**
+**「Remove Comments」** スイッチをオンにします。
 
-5. Ensure the Remove Comments switch is ON.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_component-setvar.png)
 
-6. Click Apply.
+**【ステップ 6】**
+**「Apply」** ボタンをクリックします。
+追加済みのステート `startOrderPizza` の次に `System.List` のテンプレートが追加されます。
 
-7. Change the state name of the newly added component from variableList to setPizzaSize.
+**【ステップ 7】**
+追加されたステートの名前を `variableList` から `setPizzaSize` に変更します。
 
-8. Edit the state to look like the following:
+**【ステップ 8】**
+テンプレートで追加されたステートを次のように編集します。
 
 ```yaml
   setPizzaSize:
     component: "System.List"
     properties:
       options: "${pizzaSize.type.enumValues}"
-      prompt: "What size of pizza do you want?"
+      prompt: "ピザのサイズはどれにしますか？"
       variable: "pizzaSize"
       nlpResultVariable: "iResult"
     transitions:
       next: "setPizzaType"
 ```
 
-#### ピザのトッピングの指定
+#### ピザの種類の選択
 
 Below the setPizzaSize state, paste the following code (also based on the System.List component) to create the setPizzaType state:
 
@@ -719,7 +740,7 @@ Below the setPizzaSize state, paste the following code (also based on the System
     component: "System.List"
     properties:
       options: "${pizzaType.type.enumValues}"
-      prompt: "What type of pizza would you like?"
+      prompt: "どのピザにしますか？"
       variable: "pizzaType"
       nlpResultVariable: "iResult"
     transitions:
@@ -728,27 +749,36 @@ Below the setPizzaSize state, paste the following code (also based on the System
 
 #### ピザの配達時間の指定
 
-1. Click a screenshot of the Add Component button.
+**【ステップ 1】**
+![「Components」ボタン][button_components] をクリックして、コンポーネントのテンプレート・ギャラリを開きます。
 
-2. Select the User Interface category.
+**【ステップ 2】**
+コンポーネントのタイプとして **「User Interface」** を選択します。
 
-3. Select the Text template.
+**【ステップ 3】**
+コンポーネントのリストから **「Text」** を選択します。
 
-4. From the Insert After dropdown, select setPizzaTopping.
+**【ステップ 4】**
+ドロップダウン **「Insert After」** から **「setPizzaType」** を選択します。
 
-5. Ensure the Remove Comments switch is ON.
+**【ステップ 5】**
+**「Remove Comments」** スイッチをオンにします。
 
-6. Click Apply.
+**【ステップ 6】**
+**「Apply」** ボタンをクリックします。
+ステート `setPizzaType` の次に `System.Text` のテンプレートが追加されます。
 
-7. Change the state name of the newly added component from text to setPizzaDeliveryTime.
+**【ステップ 7】**
+追加されたステートの名前を `text` から `setPizzaDeliveryTime` に変更します。
 
-8. Edit the state to look like the following:
+**【ステップ 8】**
+テンプレートで追加されたステートを次のように編集します。
 
 ```yaml
   setPizzaDeliveryTime:
     component: "System.Text"
     properties:
-      prompt: "When can we deliver that for you?"
+      prompt: "何時にお届けしますか？"
       variable: "deliveryTime"
       nlpResultVariable: "iResult"
       maxPrompts: 3
@@ -758,23 +788,46 @@ Below the setPizzaSize state, paste the following code (also based on the System
         next: "setPizzaOrderMessage"
 ```
 
+**【ステップ 9】**
+ユーザーから送信されたテキストを時刻として解釈できなかった場合は、`maxPrompts` で設定した回数（今回は `3`）ユーザーに入力を促します。
+最終的に時刻として解釈できなかった場合は、`transitions.actions.cancel` で指定したステートに遷移します。
+次のステートのコードをコピーし、ダイアログ・フローの最後に貼り付けます。
+
+```
+  maxError:
+    component: "System.Output"
+    properties:
+      text: "恐れ入りますがお電話でのご注文をお願いします。"
+    transitions:
+      return: "done"
+```
+
 #### 注文内容の確認メッセージの生成
 
-1. Click [Components] of the Add Component button.
+**【ステップ 1】**
+![「Components」ボタン][button_components] をクリックして、コンポーネントのテンプレート・ギャラリを開きます。
 
-2. Select the Variables category.
+**【ステップ 2】**
+コンポーネントのタイプとして **「Variables」** を選択します。
 
-3. Select the Set variable template.
+**【ステップ 3】**
+コンポーネントのリストから **「Set variable」** を選択します。
 
-4. From the Insert After dropdown, select setPizzaDeliveryTime.
+**【ステップ 4】**
+ドロップダウン **「Insert After」** から **「setPizzaDeliveryTime」** を選択します。
 
-5. Ensure the Remove Comments switch is ON.
+**【ステップ 5】**
+**「Remove Comments」** スイッチをオンにします。
 
-6. Click Apply.
+**【ステップ 6】**
+**「Apply」** ボタンをクリックします。
+ステート `setPizzaDeliveryTime` の次に `System.SetVariable` のテンプレートが追加されます。
 
-7. Change the state name of the newly added component from setVariable to setPizzaOrderMessage.
+**【ステップ 7】**
+追加されたステートの名前を `text` から `setPizzaDeliveryTime` に変更します。
 
-8. Edit the state to look like the following:
+**【ステップ 8】**
+テンプレートで追加されたステートを次のように編集します。
 
 ```yaml
   setPizzaOrderMessage:
@@ -782,32 +835,42 @@ Below the setPizzaSize state, paste the following code (also based on the System
     properties:
       variable: "pizzaOrderMsg"
       value:
-      - "Thank you for ordering from Pizza King!"
-      - "OK, so we are getting you the following items:"
-      - "A ${pizzaSize.value} ${pizzaTopping.value} pizza at ${deliveryTime.value.date?long?number_to_time?string('HH:mm')}."
+      - "ご注文ありがとうございます。次のとおりご注文を承りました。"
+      - "サイズ: ${pizzaSize.value}"
+      - "種類: ${pizzaSize.value}"
+      - "配達時刻: ${deliveryTime.value.date?long?number_to_time?string('HH:mm')}"
 ```
 
-  > Note:
-  > The `text` property value uses the Apache FreeMarker expression |- to print multi-line text in a single response bubble.
-  > Alternatively, you could have used multiple output text components.
+> ***Note:***
+> The `text` property value uses the Apache FreeMarker expression |- to print multi-line text in a single response bubble.
+> Alternatively, you could have used multiple output text components.
 
 #### 注文内容の確認メッセージの出力
 
-1. Click a screenshot of the Add Component button.
+**【ステップ 1】**
+![「Components」ボタン][button_components] をクリックして、コンポーネントのテンプレート・ギャラリを開きます。
 
-2. Select the User Interface category.
+**【ステップ 2】**
+コンポーネントのタイプとして **「User Interface」** を選択します。
 
-3. Select the Output template.
+**【ステップ 3】**
+コンポーネントのリストから **「Output」** を選択します。
 
-4. From the Insert After dropdown, select setPizzaOrderMessage.
+**【ステップ 4】**
+ドロップダウン **「Insert After」** から **「setPizzaOrderMessage」** を選択します。
 
-5. Ensure the Remove Comments switch is ON.
+**【ステップ 5】**
+**「Remove Comments」** スイッチをオンにします。
 
-6. Click Apply.
+**【ステップ 6】**
+**「Apply」** ボタンをクリックします。
+ステート `setPizzaOrderMessage` の次に `System.Output` のテンプレートが追加されます。
 
-7. Change the state name of the newly added component from output to showPizzaOrder.
+**【ステップ 7】**
+追加されたステートの名前を `output` から `showPizzaOrder` に変更します。
 
-8. Edit the state to look like the following:
+**【ステップ 8】**
+テンプレートで追加されたステートを次のように編集します。
 
 ```yaml
   showPizzaOrder:
@@ -823,51 +886,67 @@ Below the setPizzaSize state, paste the following code (also based on the System
 
 ### ダイアログ・フローの検証
 
-Click the Validate button on the top of the page, and then fix any errors that are revealed.
+ダイアログ・フローの構文が正しいかどうかを確認するために、画面の右上にある **「Validate」** ボタンをクリックします。
+エラーが表示された場合は、修正してください。
 
-If you have errors that you can't resolve, you can copy and paste the code from [complete-dialog-flow.txt].
+エラーを修正できない場合は、[complete-dialog-flow.txt] を開いて内容をコピーし、ダイアログ・フロー・エディタに貼り付けてみてください。
 
 ## スキルのテスト
 
 Now that all of the skill's pieces are in place, let's test its behavior.
 
-1. Open the skill tester by clicking the Skill Tester icon in the bottom of the skill's left navigation bar.
+**【ステップ 1】**
+Designer UI の画面左側のナビゲーション・バーの下部にある ![「Skill Tester」アイコン][icon_skill_tester] をクリックします。
 
-2. Click Reset.
+**【ステップ 2】**
+Skill Tester に以前に実行したテスト結果が表示されている場合は、**「リセット」** ボタンをクリックします。
 
-3. In the Message field, type `I want to order pizza` and then press [Enter].
+**【ステップ 3】**
+Skill Tester の **「Message」** フィールドに次の文を入力したら、キーボードの [Enter] キーを押します。
 
-  You should see a menu of pizza sizes:
+```
+I want to order pizza
+```
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-small.png)
+ピザのサイズの選択を促すメニューが表示されます。
 
-4. In the pizza size menu, select an option, e.g. Small.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-small.png)
 
-5. Select a topping e.g. Veggie.
+**【ステップ 4】**
+ピザのサイズを選択するメニューから適当に値を選択します。
 
-6. Enter a delivery time, e.g. 7:30 p.m.
+**【ステップ 5】**
+ピザの種類を選択するメニューが表示されます。
+適当な種類を選択します。
 
-  You should receive an order confirmation similar to the one shown in the image below:
+**【ステップ 6】**
+配達時刻の入力を促されます。`7:30 PM` や `19:30` のように時刻を指定します。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-confirmation.png)
+これにより、注文内容の確認メッセージが表示されます。
 
-7. Click Reset.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-confirmation.png)
 
-8. Now try entering `Dude, can you get me the biggest hot and spicy pizza you can make at noon` and pressing [Enter].
+**【ステップ 7】**
+Skill Tester の **「Reset」** ボタンをクリックします。
 
-  This time, you should be immediately presented with the results of the order.
+**【ステップ 8】**
+Skill Tester の **「Message」** フィールドに次の文を入力したら、キーボードの [Enter] キーを押します。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-confirmation2.png)
+```
+can you get me the biggest hot and spicy pizza you can make at noon
+```
 
-9. Within the Conversation tab, scroll down to take a look at the Variable section to see the entity values that were extracted from your input.
+今回は、ユーザーが送信した文にエンティティの情報が含まれているので、すぐに注文内容の確認メッセージが表示されます。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-variables.png)
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-confirmation2.png)
 
-10. Finally, enter `I want to a veggie pizza at 8:00pm` and press [Enter].
+**【ステップ 9】**
+Skill Tester の **「Conversation」** タブを下にスクロールすると、エンティティの値が抽出されていいることがわかります。
 
-  This time the topping menu and the delivery time should be skipped, but the pizza size list should be displayed.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-variables.png)
 
-Congratulations! You have created your first skill and learned key aspects of defining intents, defining entities, designing the conversation flow, and using the tester to evaluate intent resolution and the conversation flow.
+Congratulations!
+You have created your first skill and learned key aspects of defining intents, defining entities, designing the conversation flow, and using the tester to evaluate intent resolution and the conversation flow.
 
 <!--- Designer UI のアイコン/ボタンのスクリーンショットへのリファレンス -->
 [icon_hamburger]:           images/icon_hamburger.png           "ハンバーガー・アイコン"
