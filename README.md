@@ -21,7 +21,7 @@ As part of this process, you will:
 このチュートリアルで使用している表記方法は次のとおりです。
 
 | 表記方法 | 説明 |
-|--------|-----|
+|---|---|
 | **「太字」** | ボタン、各種フィールドのラベルなどの GUI 要素 |
 | _<イタリック>_ | 使用する環境などによって置き換える部分を表すプレースホルダー |
 | `固定幅フォント` | 実行するコマンド、URL、サンプルコード、入力するテキスト |
@@ -86,7 +86,7 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 **「Name」** フィールドに `OrderPizza` と入力します。
 
 **【ステップ 4】**
-次の箇条書きで表示されている文をコピーし、イタリック対で ***「Enter your example utterances here.」*** と書かれたフィールドに貼り付けたら、キーボードの [Enter] を押します。
+次の箇条書きで表示されている文をコピーし、イタリック体で ***「Enter your example utterances here.」*** と書かれたフィールドに貼り付けたら、キーボードの [Enter] を押します。
 複数の文をまとめてコピーし、一度に貼り付けることができます。
 
 * Would you happen to have thin crust options on your Pizzas?
@@ -113,7 +113,7 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 **「Name」** フィールドに `CancelPizza` と入力します。
 
 **【ステップ 3】**
-次の箇条書きで表示されている文をコピーし、イタリック対で ***「Enter your example utterances here.」*** と書かれたフィールドに貼り付けたら、キーボードの [Enter] を押します。
+次の箇条書きで表示されている文をコピーし、イタリック体で ***「Enter your example utterances here.」*** と書かれたフィールドに貼り付けたら、キーボードの [Enter] を押します。
 
 * Can i cancel my order?
 * Cancel my order
@@ -180,7 +180,7 @@ I want to order pizza
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-out1.png)
 
 `I want to order pizza` は、インテント OrderPizza に該当するという判定をしています。
-**「Confidence」** のスコア（今回の場合は「100%」）は、インテント判定エンジンが結果に対する自信を数値化したものです。
+**「Confidence」** のスコア（今回の場合は「100%」）は、NLP エンジンが結果に対する自信を数値化したものです。
 
 **【ステップ 4】**
 別の文でテストを行います。
@@ -210,11 +210,11 @@ Dude, bring me pizza
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out2.png)
 
-上の図のとおり、インテント判定エンジンは `Dude, bring me pizza` （日本語訳: 「おい、ピザを持ってきて」）という文はインテント OrderPizza である可能性が最も高いと判定しています。
+上の図のとおり、NLP エンジンは `Dude, bring me pizza` （日本語訳: 「おい、ピザを持ってきて」）という文はインテント OrderPizza である可能性が最も高いと判定しています。
 しかし、**「Confidence」** のスコアはそれほど高くありません。
 
 **【ステップ 7】**
-インテント判定エンジンの結果は正しいけれど Confidence のスコアが高くない場合は、テストに使用した文をインテントの例文として追加します。
+NLP エンジンの判定結果は正しいけれど Confidence のスコアが高くない場合は、テストに使用した文をインテントの例文として追加します。
 **「OrderPizza」** を選択した状態で **「Add Example」** ボタンをクリックすると、`Dude, bring me pizza` がインテント OrderPizza に例文として追加されます。
 
 **【ステップ 8】**
@@ -441,7 +441,7 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 > 追加した5行は `variables:` の行よりも半角スペース2個分多くインデントされている必要があります（合計するとスペース4個分）。
 > YAML ベースの OBotML では、インデントを使って階層構造を表現するため、正しくインデントされていないと構文エラーになります。
 
-ここまでの編集によって、ダイアログ・フロー・エディタには次のように表示されます。
+ここまでの編集によって、ダイアログ・フロー・エディタは次のように表示されます。
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_dialog-flow2.png)
 
@@ -473,16 +473,16 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 
 **【ステップ 5】**
 `System.Intent` コンポーネントのテンプレートが追加されました。
-`System.Intent` コンポーネントの `variable` プロパティの値として `"iResult"` を設定します（ダブルコーテーション`"`が必要です）。
+`System.Intent` コンポーネントの `variable` プロパティの値として `"iResult"` を設定します（ダブル・クォーテーション `"` が必要です）。
 
 ```yaml
-        variable: "iResult"
+      variable: "iResult"
 ```
 
 これによって NLP エンジンによるインテントの判定とエンティティの抽出結果が、変数 `iResult` に保存されます。
 
 **【ステップ 6】**
-テンプレートとして追加された次のプロパティは削除します。
+テンプレートによって追加された次のプロパティは削除します。
 
 * botName
 * botVersion
@@ -506,56 +506,60 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 | インテント | 遷移先のステート |
 |---|---|
 | OrderPizza | startOrderPizza |
-| CancelPizza | cancelPizza |
-| unresolvedIntent (該当するインテントがないと判定された場合) | startOrderPizza |
+| CancelPizza | startCancelPizza |
+| 該当するインテントがないと判定された場合 (unresolvedIntent) | startUnresolved |
 
 ### 各インテントの処理を開始するステートの追加
 
-Next, you need to create the dialog flow states that each possible outcome navigates to.
-To save you some time, the states are provided in a text document for you to copy and paste.
+次に、NLP エンジンが判定したインテントに対応した遷移先となる、３つのステートをダイアログ・フローに追加します。
 
-1. Open [states.txt].
+* startOrderPizza
+* startCancelPizza
+* startUnresolved
 
-2. Copy the file's contents and paste them at the bottom of the dialog flow.
+それぞれのステートは、`System.Output` コンポーネントを使用してメッセージを出力した後、`transitions.return` プロパティを使用して会話を終了します。
+このチュートリアルでは時間を節約するために、テキストをコピーし、ダイアログ・フロー・エディタに貼り付けることにします。
 
-  Make sure that the indentation is preserved in the pasted content.
+**【ステップ 1】**
+[states.txt] を開きます。
 
-3. Verify the correctness of your edits by clicking the Validate button on the top of the page.
+**【ステップ 2】**
+テキストのコンテンツをコピーし、ダイアログ・フローの最後に貼り付けます。
 
-#### ピザの注文
+貼り付けられたコンテンツが、インデントを保持していることを確認してください。
 
+**【ステップ 3】**
+Designer UI の右上にある **「Validate」** ボタンをクリックして、追加したステートの構文が正しいことを確認します。
+
+<!--
 ```yaml
+  # Intent が OrderPizza の場合: ピザの注文
   startOrderPizza:
     component: "System.Output"
     properties:
-      text: "Hello, Starting your order process"
+      text: "こんにちは、Pizza King です。ご注文を承ります。"
       keepTurn: false
     transitions:
       return: "done"
-```
 
-#### ピザの注文をキャンセル
-
-```yaml
-  cancelPizza:
+  # Intent が CancelPizza の場合: ピザの注文をキャンセル
+  startCancelPizza:
     component: "System.Output"
     properties:
-      text: "I am sorry to hear this. Let me take your cancellation request."
+      text: "注文のキャンセルを承りました。"
     transitions:
       return : "done"
-```
 
-#### 該当するインテントがないと判定された場合
-
-```yaml
+  # 該当するインテントがないと判定された場合
   startUnresolved:
     component: "System.Output"
     properties:
-      text: "I am sorry I could not understand, lets connect you with someone to help."
+      text: "申し訳ありません。おっしゃっていることが理解できませんでした。"
       keepTurn: false
     transitions:
       return: "done"
 ```
+--><!-- TODO: startUnresolved.properties.keepTurn: false は必要か？ -->
 
 ### ダイアログ・フローのトラブルシューティング
 
@@ -586,50 +590,73 @@ The list includes the intents that are greater than or equal to this delta and e
 
 Let's update these settings:
 
-1. In the left navigation for the skill, click **「Settings」** icon and select the **「Configuration」** tab.
+**【ステップ 1】**
+Designer UI の画面左側のナビゲーションで ![「Settings」アイコン][icon_settings_enabled] をクリックします。
+次に、画面上部にある **「Configuration」** タブを選択します。
 
-2. Set the **「Confidence Threshold」** property to `0.6` (meaning 60%).
+**【ステップ 2】**
+**「Confidence Threshold」** の値を `0.6` (60% 以上を意味しています) に設定します。
 
-3. Set the **「Confidence Win Margin」** property to `0.1` (meaning 10%).
+**【ステップ 3】**
+**「Confidence Win Margin」** の値を `0.1` (10% 以上を意味しています)に設定します。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_settings-thresholds.png)
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_settings-thresholds.png)
 
 ### ダイアログ・フローのテスト
 
-Before doing any further development, let's test the basic flow to make sure it responds correctly to initial user input.
+スキルの開発を進める前に、ここまでに設定した内容をテストしてみましょう。
+Designer UI の Skill Tester を使用すると、簡単に会話の流れを確認できます。
+ここでは、各インテントに応じたメッセージが表示されることを確認します。
 
-1. Open the skill tester by clicking ([Skill Tester] icon) in the bottom of the skill's left navigation bar.
+**【ステップ 1】**
+Designer UI の画面左側のナビゲーション・バーの下部にある ![「Skill Tester」アイコン][icon_skill_tester] をクリックします
+（ディスプレイのサイズによっては、下にスクロールする必要があります）。
 
-2. In the **「Message」** field, type `I want to order a pizza` and then press [Enter].
+**【ステップ 2】**
+Skill Tester の左下にある **「Message」** フィールドに次の文を入力してから、キーボードの [Enter] キーを押します。
 
-3. Click the **「Intent/Q&A」** tab to view intent resolution.
+```
+I want to order a pizza
+```
 
-  You should see an order process message as shown in the image below:
+OrderPizza に対応した（ステート `startOrderPizza` で設定した）メッセージが表示されることを確認します。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_test-intent-qa.png)
+**【ステップ 3】**
+Skill Tester の右側にある **「Intent/Q&A」** タブをクリックすると、NLP エンジンによるインテントの判定結果を確認できます。
+次のスクリーンショットのように表示されているはずです。
 
-4. Click **「Reset」**.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_test-intent-qa.png)
 
-5. In the **「Message」** field, type `I want to cancel my order` and then press [Enter].
+**【ステップ 4】**
+Skill Tester の右上にある **「Reset」** ボタンをクリックします。
+表示されていた内容がクリアされ、会話がリセットされます。
 
-  The skill should respond with a message regarding pizza cancelation.
-  And, in the Intent Matches panel, you should see that the CancelPizza intent is matched.
+**【ステップ 5】**
+Skill Tester の **「Message」** フィールドに次の文を入力してから、キーボードの [Enter] キーを押します。
 
-6. Click **「Reset」**.
+```
+I want to cancel my order
+```
 
-7. In the **「Message」** field, type `Your delivery is too late, either cancel the order or file a complaint right now` and then press [Enter].
+CancelPizza に対応した（ステート `startCancelPizza` で設定した）メッセージが表示されることを確認します。
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_cancel-complain-disambiguation.png)
+**【ステップ 6】**
+Skill Tester の **「Reset」** ボタンをクリックします。
 
-  As you can see, both CancelPizza and FileComplaint exceeded the confidence threshold of 60%.
-  CancelPizza has a higher score than FileComplaint.
-  However, since CancelPizza's score exceeds that of FileComplaint by less than the confidence win margin that we set earlier (10%), the skill presents a dialog so that the user can select what she really wants.
+**【ステップ 7】**
+今回作成したインテント（ピザの注文やキャンセル）とは関係のない文も試してみましょう。
+Skill Tester の **「Message」** フィールドに次の文を入力してから、キーボードの [Enter] キーを押します。
 
-8. Finally, try a last random utterance: `Can you get me a radio taxi now?`
+```
+Can you get me a radio taxi now?
+```
 
-  ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_test-intent-qa3.png)
+**「Intent/Q&A」** タブをクリックして NLP エンジンの判定結果を確認します。
 
-  As you can see, the confidence threshold level falls below this minimum value of 60% in this case, so the component triggers its unresolvedIntent action.
+![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_test-intent-qa3.png)
+
+作成した2つのインテントのどちらも Confidence のスコアが 60% を超えていません。
+そのため、unresolvedIntent に対応したステート `startUnresolved` にステートが遷移しました。
 
 ### ピザの注文を受ける会話の作成
 
@@ -680,20 +707,20 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
       variable: "pizzaSize"
       nlpResultVariable: "iResult"
     transitions:
-      next: "setPizzaTopping"
+      next: "setPizzaType"
 ```
 
 #### ピザのトッピングの指定
 
-Below the setPizzaSize state, paste the following code (also based on the System.List component) to create the setPizzaTopping state:
+Below the setPizzaSize state, paste the following code (also based on the System.List component) to create the setPizzaType state:
 
 ```yaml
-  setPizzaTopping:
+  setPizzaType:
     component: "System.List"
     properties:
-      options: "${pizzaTopping.type.enumValues}"
+      options: "${pizzaType.type.enumValues}"
       prompt: "What type of pizza would you like?"
-      variable: "pizzaTopping"
+      variable: "pizzaType"
       nlpResultVariable: "iResult"
     transitions:
       next: "setPizzaDeliveryTime"
@@ -850,6 +877,9 @@ Congratulations! You have created your first skill and learned key aspects of de
 [icon_flows_selected]:      images/icon_flows_selected.png      "「Flows」アイコン"
 [icon_intents_enabled]:     images/icon_intents_enabled.png     "「Intents」アイコン"
 [icon_intents_selected]:    images/icon_intents_selected.png    "「Intents」アイコン"
+[icon_settings_enabled]:    images/icon_settings_enabled.png    "「Settings」アイコン"
+[icon_settings_selected]:   images/icon_settings_selected.png   "「Settings」アイコン"
+[icon_skill_tester]:        images/icon_skill_tester.png        "「Skill Tester」アイコン"
 [button_close_try_it_out]:  images/button_close_try_it_out.png  "「Close」ボタン"
 [button_components]:        images/button_components.png        "「Components」ボタン"
 [button_create_entity]:     images/button_create_entity.png     "「+ Entity」ボタン"
