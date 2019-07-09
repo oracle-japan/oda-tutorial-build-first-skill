@@ -3,13 +3,15 @@
 ## 目次
 
 <!-- TOC -->
-  <!-- - [目次](#%E7%9B%AE%E6%AC%A1) -->
-- [はじめに](#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB)
-- [スキルの作成](#%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%AE%E4%BD%9C%E6%88%90)
-- [インテントの作成](#%E3%82%A4%E3%83%B3%E3%83%86%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90)
-- [ダイアログ・フローのデザイン](#%E3%83%80%E3%82%A4%E3%82%A2%E3%83%AD%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3)
-- [スキルのテスト](#%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88)
+  - [はじめに](#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB)
+  - [スキルの作成](#%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%AE%E4%BD%9C%E6%88%90)
+  - [インテントの作成](#%E3%82%A4%E3%83%B3%E3%83%86%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90)
+  - [モデルのテスト](#%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88)
+  - [エンティティの作成](#%E3%82%A8%E3%83%B3%E3%83%86%E3%82%A3%E3%83%86%E3%82%A3%E3%81%AE%E4%BD%9C%E6%88%90)
+  - [ダイアログ・フローのデザイン](#%E3%83%80%E3%82%A4%E3%82%A2%E3%83%AD%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3)
+  - [スキルのテスト](#%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88)
 
+<!-- /TOC -->
 <!-- /TOC -->
 
 ## はじめに
@@ -78,6 +80,8 @@ Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
 ![インテント編集画面](images/screenshot_intents-01.png)
 
 Here's where we'll begin to express the use case (that is, the PizzaKing-customer activity flow) in terms of the concepts that support Natural Language Processing (NLP): intents and entities.
+
+[目次に戻る](#%E7%9B%AE%E6%AC%A1)
 
 ## インテントの作成
 
