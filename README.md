@@ -19,7 +19,7 @@ As part of this process, you will:
 | 表記方法 | 説明 |
 |---|---|
 | **「太字」** | ボタン、各種フィールドのラベルなどの GUI 要素 |
-| `固定幅フォント` | 実行するコマンド、URL、サンプルコード、入力するテキスト |
+| `固定幅フォント` | サンプルコード、入力するテキスト |
 
 ## スキルの作成
 
@@ -30,12 +30,12 @@ As part of this process, you will:
 Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
 画面左上の ![ハンバーガー・アイコン][icon_hamburger] をクリックしてメニューを開きます。
 
-<!-- ![Oracle Digital Assistant Designer UI](images/designer_home-01.png "Oracle Digital Assistant の Designer UI でハンバーガー・アイコンをクリック") -->
+![Oracle Digital Assistant Designer UI](images/screenshot_home-01.png "Oracle Digital Assistant の Designer UI でハンバーガー・アイコンをクリック")
 
 **【ステップ 2】**
 メニューから **「Develpment」** をクリックし、 **「Skills」** を選択します。
 
-<!-- ![Oracle Digital Assistant Designer UI](images/designer_home-02.png "Designer UI のメニューから「Development」→「Skills」を選択") -->
+![Oracle Digital Assistant Designer UI](images/screenshot_home-02.png "Designer UI のメニューから「Development」→「Skills」を選択")
 
 **【ステップ 3】**
 メニューを閉じるために、 ![ハンバーガー・アイコン][icon_hamburger] をもう一度クリックします。
@@ -43,11 +43,9 @@ Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
 **【ステップ 4】**
 **「New Skill」** をクリックします。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/tile_new-skill.png)
+![Oracle Digital Assistant Designer UI](images/screenshot_skills-01.png)
 
 **「Create Skill」** ボックスが表示されます。
-
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/dialog_create-skill.png)
 
 **【ステップ 5】**
 **「Create Skill」** ダイアログの **「Display Name」** フィールドに `Pizza King` と入力します。
@@ -57,9 +55,13 @@ Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
 **【ステップ 6】**
 **「Version」** フィールドに `1.0` と入力します。
 
+![「Create Skill」ボックス](images/scrennshot_create_skill-02.png)
+
 **【ステップ 7】**
 **「Create」** ボタンをクリックすると、Desginer UI には作成したスキルを設定するための画面が表示されます。
 スキルの設定画面の左側はナビゲーション・バーになっており、![「Intents」アイコン][icon_intents_selected] が選択されています。
+
+![インテント編集画面](images/screenshot_intents-01.png)
 
 Here's where we'll begin to express the use case (that is, the PizzaKing-customer activity flow) in terms of the concepts that support Natural Language Processing (NLP): intents and entities.
 
@@ -79,7 +81,7 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 ![「+ Intent」ボタン][button_create_intent] をクリックします。
 
 **【ステップ 3】**
-**「Name」** フィールドに `OrderPizza` と入力します。
+**「Conversation Name」** と **「Name」** フィールドにそれぞれ `OrderPizza` と入力します。
 
 **【ステップ 4】**
 次の箇条書きで表示されている文をコピーし、イタリック体で ***「Enter your example utterances here.」*** と書かれたフィールドに貼り付けたら、キーボードの [Enter] を押します。
@@ -98,7 +100,9 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 * Do you have deep dish pizzas available?
 * Order Pizza!
 
-12の例文が追加されることを確認します。
+12の例文が追加され、Designer UI には次のように表示されます。
+
+![インテント編集画面](images/screenshot_intents-02.png)
 
 ### インテントの作成 (2) CancelPizza
 
@@ -106,7 +110,7 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 ![「+ Intent」ボタン][button_create_intent] をクリックします。
 
 **【ステップ 2】**
-**「Name」** フィールドに `CancelPizza` と入力します。
+**「Conversation Name」** と **「Name」** フィールドにそれぞれ `CancelPizza` と入力します。
 
 **【ステップ 3】**
 次の箇条書きで表示されている文をコピーし、イタリック体で ***「Enter your example utterances here.」*** と書かれたフィールドに貼り付けたら、キーボードの [Enter] を押します。
@@ -125,7 +129,7 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 
 11の例文が追加され、Designer UI には次のように表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_pizza-intents.png)
+![インテント編集画面](images/screenshot_intents-03.png)
 
 > ***Note:***
 > If you are stuck, you can import the intents and utterances using [PizzaKing-Intents.csv].
@@ -140,12 +144,15 @@ To enable it to understand the intents, you need to train it.
 **【ステップ 1】**
 画面の右上に ![「Train」ボタン][button_train] が表示されていることを確認します。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_train-button.png)
+![インテント編集画面](images/scrennshot_intents-04.png)
 
 **「Train」** ボタンにはエクスクラメーション・マークのアイコンが表示されており、トレーニングが必要なことを表しています。
 
 **【ステップ 2】**
 ![「Train」ボタン][button_train] をクリックすると **「Train」** ボックスが表示されます。
+
+![Train ボックス](images/screenshot_train-01.png)
+
 **「Submit」** ボタンをクリックして数秒待つとトレーニングは完了します。
 トレーニングが完了すると **「Train」** ボタンのアイコンがチェック・マークに変わります。
 
@@ -154,7 +161,8 @@ To enable it to understand the intents, you need to train it.
 It is not realistic to get the training of your intent model right the first time you do it.
 Good intent models are created in an iterative cycle of training, testing, retraining, and retesting.
 
-A good intent model is one that has a low ambiguity between the different intents. So let's see how well we’re doing so far.
+A good intent model is one that has a low ambiguity between the different intents.
+So let's see how well we’re doing so far.
 
 **【ステップ 1】**
 Designer UI のインテントの編集ページが表示されていない場合は、画面左側のナビゲーションの ![「Intents」アイコン][icon_intents_enabled] をクリックします。
@@ -162,7 +170,11 @@ Designer UI のインテントの編集ページが表示されていない場�
 **【ステップ 2】**
 画面の右上の方にある **「Try It Out!」** リンクをクリックします。
 
+![インテント編集画面](images/scrennshot_intents-05.png)
+
 画面の右側に **「Try Out Intents/Q&A」** ボックスが表示されます。
+
+![「Try Out Intents/Q&A」ボックス](images/screenshot_try_out_intents-01.png)
 
 **【ステップ 3】**
 **「Try Out Intents/Q&A」** ボックスの一番下にある **「Message」** フィールドに次の文を入力します。
@@ -173,7 +185,7 @@ I want to order pizza
 
 **「Send」** ボタンをクリックすると、**「Try Out Intents/Q&A」** ボックスは次のように表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-out1.png)
+![「Try Out Intents/Q&A」ボックス](images/screenshot_try_out_intents-02.png)
 
 `I want to order pizza` は、インテント OrderPizza に該当するという判定をしています。
 **「Confidence」** のスコア（今回の場合は「100%」）は、NLP エンジンが結果に対する自信を数値化したものです。
@@ -205,7 +217,7 @@ Dude, bring me pizza
 
 **「Try Out Intents/Q&A」** ボックスには次のように表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out2.png)
+![「Try Out Intents/Q&A」ボックス](images/screenshot_try_out_intents-05.png)
 
 上の図のとおり、NLP エンジンは `Dude, bring me pizza` （日本語訳: 「おい、ピザを持ってきて」）という文がインテント OrderPizza である可能性が最も高いと判定しています。
 しかし、**「Confidence」** のスコアはそれほど高くありません。
@@ -214,12 +226,14 @@ Dude, bring me pizza
 Confidence のスコアが高くない場合は、テストに使用した文をインテントの例文として追加します。
 **「OrderPizza」** を選択した状態で **「Add Example」** ボタンをクリックすると、`Dude, bring me pizza` がインテント OrderPizza に例文として追加されます。
 
+![インテント編集画面](images/scrennshot_intents-06.png)
+
 **【ステップ 8】**
 インテントの例文を追加したので、トレーニングの実行が必要になりました。
 画面右上の ![「Train」ボタン][button_train] をクリックしてトレーニングを実行します。
 
 **【ステップ 9】**
-もう一度 `Dude, bring me pizza` という文をテストしてみます。
+**「Reset」** ボタンをクリックしてから、もう一度 `Dude, bring me pizza` という文をテストしてみます。
 インテントの例文として追加されたので、インテント OrderPizza の Confidence のスコア上がっていることを確認します。
 
 **【ステップ 10】**
@@ -260,7 +274,7 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 新しいエンティティを作成するために、![「+ Entitiy」ボタン][button_create_entity] をクリックします。
 
 **【ステップ 3】**
-**「Name」** フィールドにはデフォルトの値がセットされていますが、`PizzaSize` に変更します。
+**「Name」** フィールドの値を `PizzaSize` に変更します。
 
 **【ステップ 4】**
 **「Configuration」** セクションのドロップダウン・リスト **「Type」** から **「Value list」** を選択します。
@@ -270,11 +284,13 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 **「Create Value」** ボックスが表示されます。
 
 **【ステップ 6】**
-**「Value」** フィールドに `Small` と入力します。
+**「Value」** フィールドに `Sサイズ` と入力します。
 
 **【ステップ 7】**
-**「Synonyms」** フィールドに `Personal` と入力したら、キーボードの [Tab] キーを押します。
-次に `smallest` を入力します。
+**「Synonyms」** フィールドに `Small` と入力したら、キーボードの [Tab] キーを押します。
+次に `smallest` を入力してから、キーボードの [Tab] キーを押します。
+
+![「Create Value」ボックス](images/screenshot_create_value-02.png)
 
 **【ステップ 8】**
 **「Create Value」** ボックスの **「Create」** ボタンをクリックします。
@@ -284,8 +300,12 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 
 | Value | Synonyms |
 |-------|----------|
-| `Medium` | `middle` |
-| `Large` | `Big`, `grande`, `biggest` |
+| `Mサイズ` | `Medium`, `middle` |
+| `Lサイズ` | `Large`, `Big`, `biggest` |
+
+エンティティ PizzaSize が作成されると、エンティティの編集画面には次のように表示されます。
+
+![エンティティ編集画面](images/screenshot_entities-01.png)
 
 ### エンティティの作成 (2) PizzaSize
 
@@ -310,7 +330,7 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 
 エンティティが作成されると、Designer UI には次のように表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_pizza-entities.png)
+![エンティティ編集画面](images/screenshot_entities-02.png)
 
 ### インテントとエンティティの関連付け
 
@@ -329,6 +349,8 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 **【ステップ 4】**
 エンティティの一覧の中から **「PizzaSize」** を選択します。
 
+![インテント編集画面](images/scrennshot_intents-07.png)
+
 **【ステップ 5】**
 ステップ3～4の操作を繰り返して、次の２つのエンティティを追加します。
 
@@ -341,7 +363,7 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 ここまでの操作によって、インテント OrderPizza に関連付けられたエンティティは次のように表示されます。
 （実際の画面と表示される順番が異なることがありますが、特に問題はありません）
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_entity-list.png)
+![インテント編集画面](images/scrennshot_intents-08.png)
 
 **【ステップ 6】**
 インテントにエンティティが関連付けられたので、トレーニングが必要になります。
@@ -361,13 +383,13 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 **「Try Out Intents/Q&A」** ボックスの **「Message」** フィールドに、次の文を入力します。
 
 ```
-I want to order a small hot and spicy pizza at 7:30 pm
+I want to order a small cheese pizza at 7:30 pm
 ```
 
 **「Send」** ボタンをクリックすると、入力された文から３つのエンティティ（PizzaSize、PizzaType、TIME）の値が抽出されます。
 **「Try Out Intents/Q&A」** ボックスには次のように表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out5.png)
+![「Try Out Intents/Q&A」ボックス](images/screenshot_try_out_intents-07.png)
 
 > ***Note:***
 > You may need to scroll up in the dialog to see the entities.
@@ -377,13 +399,13 @@ I want to order a small hot and spicy pizza at 7:30 pm
 **「Try Out Intents/Q&A」** ボックスの **「Message」** フィールドに次の文を入力し、**「Send」** ボタンをクリックします。
 
 ```
-I want to order the biggest margherita pizza at noon`
+I want to order the biggest margherita pizza at noon
 ```
 
 The result should look like what is shown below and thus prove that the PizzaSize entity shows the right value for the biggest synonym.
 Also "noon" is properly interpreted as 12:00 p.m.
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out6.png)
+![「Try Out Intents/Q&A」ボックス](images/screenshot_try_out_intents-08.png)
 
 ### このセクションのまとめ
 
@@ -962,5 +984,5 @@ You have created your first skill and learned key aspects of defining intents, d
 [button_create_entity]:     images/button_create_entity.png     "「+ Entity」ボタン"
 [button_create_intent]:     images/button_create_intent.png     "「+ Intent」ボタン"
 [button_create_value]:      images/button_create_value.png      "「+ Value」ボタン"
-[button_intent_entities]:   images/button_create_value.png      "「+ Entity」ドロップダウン・ボタン"
+[button_intent_entities]:   images/button_intent_entities.png   "「+ Entity」ドロップダウン・ボタン"
 [button_train]:             images/button_train.png             "「Train」ボタン"
