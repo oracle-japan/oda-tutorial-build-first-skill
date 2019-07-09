@@ -1,0 +1,49 @@
+#metadata: information about the flow
+#  platformVersion: the version of the bots platform that this flow was written to work with
+metadata:
+  platformVersion: "1.0"
+main: true
+name: PizzaKing
+#context: Define the variables which will used throughout the dialog flow here.
+context:
+  variables:
+    iResult: "nlpresult"
+    pizzaSize: "PizzaSize"
+    pizzaType: "PizzaType"
+    deliveryTime: "TIME"
+    pizzaOrderMsg: "string"
+states:
+  intent:
+    component: "System.Intent"
+    properties:
+      variable: "iResult"
+      optionsPrompt: "Do you want to"
+      translate: false
+      daIntercept: "always"
+    transitions:
+      actions:
+        OrderPizza: "startOrderPizza"
+        CancelPizza: "startCancelPizza"
+        unresolvedIntent: "startUnresolved"
+
+    startOrderPizza:
+      component: "System.Output"
+      properties:
+        text: "こんにちは、Pizza King です。ご注文を承ります。"
+        keepTurn: false
+      transitions:
+        return: "done"
+
+    startCancelPizza:
+      component: "System.Output"
+      properties:
+        text: "注文のキャンセルを承りました。"
+      transitions:
+        return : "done"
+
+    startUnresolved:
+      component: "System.Output"
+      properties:
+        text: "申し訳ありません。おっしゃっていることが理解できませんでした。"
+      transitions:
+        return: "done"

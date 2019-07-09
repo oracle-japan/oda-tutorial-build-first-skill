@@ -135,7 +135,8 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 ![インテント編集画面](images/screenshot_intents-03.png)
 
 > ***Note:***
-> If you are stuck, you can import the intents and utterances using [PizzaKing-Intents.csv].
+> 操作につまってしまったときは、 [PizzaKing-Intents.csv][PizzaKing-Intents] をダウンロードして、**「More」** → **「Import intents」** を実行してみてください。
+> 必要な例文が一度に投入できます。
 
 ### インテントのトレーニング
 
@@ -575,7 +576,7 @@ In addition, you can click the debug icon ([debug icon]), which appears to the l
 It often provides additional information about the reason.
 You close the debug window by clicking the debug icon again.
 
-If you have gotten into a jam and can’t get anything to work, open the [your-first-dialog-flow.txt] and replace the content in your dialog flow with the content from the file.
+If you have gotten into a jam and can’t get anything to work, open the [your-first-dialog-flow.yaml][your-first-dialog-flow] and replace the content in your dialog flow with the content from the file.
 
 ### インテントの判定のチューニング
 
@@ -903,7 +904,7 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 ダイアログ・フローの構文が正しいかどうかを確認するために、画面の右上にある **「Validate」** ボタンをクリックします。
 エラーが表示された場合は、修正してください。
 
-エラーを修正できない場合は、[complete-dialog-flow.txt] を開いて内容をコピーし、ダイアログ・フロー・エディタに貼り付けてみてください。
+エラーを修正できない場合は、[complete-dialog-flow.yaml][complete-dialog-flow] を開いて内容をコピーし、ダイアログ・フロー・エディタに貼り付けてみてください。
 
 ## スキルのテスト
 
@@ -990,3 +991,8 @@ Skill Tester の **「Conversation」** タブ・ページを下にスクロー�
 [button_create_value]:      images/button_create_value.png      "「+ Value」ボタン"
 [button_intent_entities]:   images/button_intent_entities.png   "「+ Entity」ドロップダウン・ボタン"
 [button_train]:             images/button_train.png             "「Train」ボタン"
+
+<!-- 各種リソースへのリファレンス -->
+[PizzaKing-Intents]:      resources/PizzaKing-Intents.csv
+[complete-dialog-flow]:   resources/complete-dialog-flow.yaml
+[your-first-dialog-flow]: resources/your-first-dialog-flow.yaml
