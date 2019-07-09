@@ -375,7 +375,7 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 **【ステップ 4】**
 エンティティの一覧の中から **「PizzaSize」** を選択します。
 
-![インテント編集画面](images/scrennshot_intents-07.png)
+![インテント編集画面](images/screenshot_intents-07.png)
 
 **【ステップ 5】**
 ステップ3～4の操作を繰り返して、次の２つのエンティティを追加します。
