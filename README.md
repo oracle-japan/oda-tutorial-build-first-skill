@@ -144,7 +144,7 @@ To enable it to understand the intents, you need to train it.
 **【ステップ 1】**
 画面の右上に ![「Train」ボタン][button_train] が表示されていることを確認します。
 
-![インテント編集画面](images/scrennshot_intents-04.png)
+![インテント編集画面](images/screenshot_intents-04.png)
 
 **「Train」** ボタンにはエクスクラメーション・マークのアイコンが表示されており、トレーニングが必要なことを表しています。
 
@@ -170,7 +170,7 @@ Designer UI のインテントの編集ページが表示されていない場�
 **【ステップ 2】**
 画面の右上の方にある **「Try It Out!」** リンクをクリックします。
 
-![インテント編集画面](images/scrennshot_intents-05.png)
+![インテント編集画面](images/screenshot_intents-05.png)
 
 画面の右側に **「Try Out Intents/Q&A」** ボックスが表示されます。
 
@@ -226,7 +226,7 @@ Dude, bring me pizza
 Confidence のスコアが高くない場合は、テストに使用した文をインテントの例文として追加します。
 **「OrderPizza」** を選択した状態で **「Add Example」** ボタンをクリックすると、`Dude, bring me pizza` がインテント OrderPizza に例文として追加されます。
 
-![インテント編集画面](images/scrennshot_intents-06.png)
+![インテント編集画面](images/screenshot_intents-06.png)
 
 **【ステップ 8】**
 インテントの例文を追加したので、トレーニングの実行が必要になりました。
@@ -363,7 +363,7 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 ここまでの操作によって、インテント OrderPizza に関連付けられたエンティティは次のように表示されます。
 （実際の画面と表示される順番が異なることがありますが、特に問題はありません）
 
-![インテント編集画面](images/scrennshot_intents-08.png)
+![インテント編集画面](images/screenshot_intents-08.png)
 
 **【ステップ 6】**
 インテントにエンティティが関連付けられたので、トレーニングが必要になります。
