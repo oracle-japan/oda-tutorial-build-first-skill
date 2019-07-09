@@ -12,10 +12,6 @@ As part of this process, you will:
 * Design a conversation flow.
 * Validate, debuga and test your skill.
 
-### 事前準備
-
-* Access to Oracle Digital Assistant.
-
 ### このチュートリアルの表記方法
 
 このチュートリアルで使用している表記方法は次のとおりです。
@@ -27,8 +23,8 @@ As part of this process, you will:
 
 ## スキルの作成
 
-In this lab, we're starting from scratch.
-So the first thing you'll do is create a new skill.
+このチュートリアルでは、スキルを作成する手順を一から説明していきます。
+はじめに、新しくスキルを作成します。
 
 **【ステップ 1】**
 Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
@@ -56,14 +52,15 @@ Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
 **【ステップ 5】**
 **「Create Skill」** ダイアログの **「Display Name」** フィールドに `Pizza King` と入力します。
 このチュートリアルを同じ環境で実施する人が他にもいる場合は、区別できるように `Pizza King` の前または後ろにあなたのイニシャルなどを付けてください。
+(例: `Pizza King AB`)
 
 **【ステップ 6】**
 **「Version」** フィールドに `1.0` と入力します。
 
 **【ステップ 7】**
-**「Create」** ボタンをクリックします。
+**「Create」** ボタンをクリックすると、Desginer UI には作成したスキルを設定するための画面が表示されます。
+スキルの設定画面の左側はナビゲーション・バーになっており、![「Intents」アイコン][icon_intents_selected] が選択されています。
 
-The designer will then open on the **「Intents」** page.
 Here's where we'll begin to express the use case (that is, the PizzaKing-customer activity flow) in terms of the concepts that support Natural Language Processing (NLP): intents and entities.
 
 ## インテントの作成
@@ -182,7 +179,7 @@ I want to order pizza
 **「Confidence」** のスコア（今回の場合は「100%」）は、NLP エンジンが結果に対する自信を数値化したものです。
 
 **【ステップ 4】**
-別の文でテストを行います。
+別の文をテストします。
 次の文を **「Try Out Intents/Q&A」** ボックスの **「Message」** フィールドに入力したら、**「Send」** ボタンをクリックします。
 
 ```
@@ -192,7 +189,8 @@ I feel like eating some pizza
 ステップ 3 で実行したテストと同様に、インテント OrderPizza と判定されます。
 
 **【ステップ 5】**
-次の文をテストします。今回は、インテント CancelPizza と判定されます。
+次の文をテストします。
+今回は、インテント CancelPizza と判定されます。
 
 ```
 Cancel my order?
@@ -209,11 +207,11 @@ Dude, bring me pizza
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out2.png)
 
-上の図のとおり、NLP エンジンは `Dude, bring me pizza` （日本語訳: 「おい、ピザを持ってきて」）という文はインテント OrderPizza である可能性が最も高いと判定しています。
+上の図のとおり、NLP エンジンは `Dude, bring me pizza` （日本語訳: 「おい、ピザを持ってきて」）という文がインテント OrderPizza である可能性が最も高いと判定しています。
 しかし、**「Confidence」** のスコアはそれほど高くありません。
 
 **【ステップ 7】**
-NLP エンジンの判定結果は正しいけれど Confidence のスコアが高くない場合は、テストに使用した文をインテントの例文として追加します。
+Confidence のスコアが高くない場合は、テストに使用した文をインテントの例文として追加します。
 **「OrderPizza」** を選択した状態で **「Add Example」** ボタンをクリックすると、`Dude, bring me pizza` がインテント OrderPizza に例文として追加されます。
 
 **【ステップ 8】**
@@ -222,7 +220,7 @@ NLP エンジンの判定結果は正しいけれど Confidence のスコアが�
 
 **【ステップ 9】**
 もう一度 `Dude, bring me pizza` という文をテストしてみます。
-例文として追加されたので、インテント OrderPizza の Confidence のスコア上がっていることを確認します。
+インテントの例文として追加されたので、インテント OrderPizza の Confidence のスコア上がっていることを確認します。
 
 **【ステップ 10】**
 テストが終わったら、![「Close」ボタン][button_close_try_it_out] をクリックして、**「Try Out Intents/Q&A」** ボックスを閉じます。
@@ -242,10 +240,6 @@ In this part of the tutorial, you have tested the quality of your intent trainin
 
 In a real skill project, you would always need to go back to the intent testing with user-provided entries you find in the conversation logs.
 If, using that test input, your intents are not matched the way they should be, you need to add them as example utterances to proper intents and then retrain the model.
-
-> ***Note:***
-> Oracle Digital Assistant also has a batch mode that allows you to test based on a log of a previous set of tests.
-> This is useful for re-running a set of tests iteratively as you fine-tune your intents.
 
 ## エンティティの作成
 
@@ -309,10 +303,10 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 
 | Value | Synonyms |
 |-------|----------|
-| `Meaty` |   |
-| `Veggie` |   |
-| `Hot and Spicy` |   |
-| `American Hot` |   |
+| `マルゲリータ` | `Margherita` |
+| `シーフード` | `sea food`, `seefood`  |
+| `ポテト＆ベーコン` | `poteto and bacon`  |
+| `チーズ` | `cheese` |
 
 エンティティが作成されると、Designer UI には次のように表示されます。
 
@@ -320,8 +314,8 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 
 ### インテントとエンティティの関連付け
 
-For an entity to be recognized when parsing the user input message, it needs to be associated with an intent.
-So let’s associate our entities with the appropriate intents:
+ユーザーが送信してきたメッセージを解析し、エンティティを抽出するためには、インテントとエンティティを関連付ける必要があります。
+インテント OrderPizza と、前のセクションで作成したエンティティを関連付ける手順は次のとおりです。
 
 **【ステップ 1】**
 インテントを編集するために、Designer UI の画面左側のナビゲーションの ![「Intents」アイコン][icon_intents_enabled] をクリックします。
@@ -344,7 +338,8 @@ So let’s associate our entities with the appropriate intents:
 エンティティ TIME は、Oracle Digital Assistant が提供するビルトインのエンティティのひとつです。
 今回は、ピザの配達時間を指定するために使用します。
 
-ここまでの操作によって、インテント OrderPizza に関連付けられたエンティティは次のように表示されます（実際の画面と表示される順番が異なることがありますが、特に問題はありません）。
+ここまでの操作によって、インテント OrderPizza に関連付けられたエンティティは次のように表示されます。
+（実際の画面と表示される順番が異なることがありますが、特に問題はありません）
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_entity-list.png)
 
@@ -354,7 +349,7 @@ So let’s associate our entities with the appropriate intents:
 
 ### エンティティのテスト
 
-The Try It Out feature enables you to test whether the skill identifies entity values in user input.
+インテントのテストに使用した **「Try It Out」** ボックスを使用して、ユーザーが送信したメッセージからエンティティの値を抽出できることを確認しましょう。
 
 **【ステップ 1】**
 Designer UI の画面左側のナビゲーションで ![「Intents」アイコン][icon_intents_selected] を選択します。
@@ -369,21 +364,20 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 I want to order a small hot and spicy pizza at 7:30 pm
 ```
 
-**「Send」** ボタンをクリックすると、入力された文から３つのエンティティ（PizzaSize、PizzaType、TIME）が抽出され、**「Try Out Intents/Q&A」** ボックスには次のように表示されます。
+**「Send」** ボタンをクリックすると、入力された文から３つのエンティティ（PizzaSize、PizzaType、TIME）の値が抽出されます。
+**「Try Out Intents/Q&A」** ボックスには次のように表示されます。
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_try-it-out5.png)
 
 > ***Note:***
 > You may need to scroll up in the dialog to see the entities.
 
-Since the entities are recognized in the user input, the skill doesn’t have to ask the user for that information later in the flow.
-
 **【ステップ 4】**
 他の例についても試してみましょう。
 **「Try Out Intents/Q&A」** ボックスの **「Message」** フィールドに次の文を入力し、**「Send」** ボタンをクリックします。
 
 ```
-I want to order the biggest meaty pizza at noon`
+I want to order the biggest margherita pizza at noon`
 ```
 
 The result should look like what is shown below and thus prove that the PizzaSize entity shows the right value for the biggest synonym.
@@ -393,10 +387,8 @@ Also "noon" is properly interpreted as 12:00 p.m.
 
 ### このセクションのまとめ
 
-In this part of the tutorial, you have created custom entities for the PizzaKing OrderPizza intent, associated the entities with the intent, and tested the entity recognition in the embedded skill tester.
-
-Similar to the PizzaOrder intent, you would typically need to create and associate entities for the other intents as well.
-In the interest of time, this tutorial only focuses on the PizzaOrder intent.
+このセクションでは、ピザの注文プロセスを実行する上で必要な情報をカスタム・エンティティとして定義し、インテント OrderPizza と関連付けました。
+また、ユーザーが送信されたメッセージからエンティティの情報を抽出するテストの手順についても確認しました。
 
 ## ダイアログ・フローのデザイン
 
@@ -416,7 +408,7 @@ We'll add context variables to hold values returned by the intent engine, entity
 Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_enabled] をクリックし、ダイアログ・フロー・エディタを開きます。
 
 **【ステップ 2】**
-`variables:` と `states:` の間の行を削除します。<!-- 具体的な行番号を書く -->
+`variables:` と `states:` の間の行を削除します。<!-- TODO: 具体的な行番号を書く -->
 
 **【ステップ 3】**
 `states:` より下の行を削除します。
@@ -490,7 +482,7 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 * footerText
 
 **【ステップ 7】**
-次の遷移するステートを設定するため、`transition.actions` プロパティを次のように編集します。
+次に遷移するステートを設定するため、`transition.actions` プロパティを次のように編集します。
 
 ```yaml
     transitions:
@@ -607,8 +599,8 @@ Designer UI の Skill Tester を使用すると、簡単に会話の流れを確
 ここでは、各インテントに応じたメッセージが表示されることを確認します。
 
 **【ステップ 1】**
-Designer UI の画面左側のナビゲーション・バーの下部にある ![「Skill Tester」アイコン][icon_skill_tester] をクリックします
-（ディスプレイのサイズによっては、下にスクロールする必要があります）。
+Designer UI の画面左側のナビゲーション・バーの下部にある ![「Skill Tester」アイコン][icon_skill_tester] をクリックします。
+（ディスプレイのサイズによっては、下にスクロールする必要があります）
 
 **【ステップ 2】**
 Skill Tester の左下にある **「Message」** フィールドに次の文を入力してから、キーボードの [Enter] キーを押します。
@@ -675,6 +667,7 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
 
 **【ステップ 2】**
 `keepTurn` プロパティの値を `true` に変更します。
+通常は、スキルとユーザーが交互にメッセージを送信しますが、`keepTurn` プロパティの値を `true` に設定すると、スキルからユーザーに連続でメッセージを送信できます。
 ブーリアン型の値 (`true` または `false` のどちらかをセットする値)は、ダブル・クォーテーション (`"`) は不要です。
 
 **【ステップ 3】**
@@ -733,7 +726,7 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
 
 #### ピザの種類の選択
 
-Below the setPizzaSize state, paste the following code (also based on the System.List component) to create the setPizzaType state:
+次のコード･ブロックをコピーし、ステート `setPizzaSize` の後に貼り付けます。
 
 ```yaml
   setPizzaType:
@@ -746,6 +739,9 @@ Below the setPizzaSize state, paste the following code (also based on the System
     transitions:
       next: "setPizzaDeliveryTime"
 ```
+
+追加されたステート `setPiizaType` は、`setPizzaSize` と同様に `System.List` コンポーネントを使用しています。
+表示されるオプションは、エンティティ `PizzaType` の値が使用されます。
 
 #### ピザの配達時間の指定
 
@@ -766,7 +762,7 @@ Below the setPizzaSize state, paste the following code (also based on the System
 
 **【ステップ 6】**
 **「Apply」** ボタンをクリックします。
-ステート `setPizzaType` の次に `System.Text` のテンプレートが追加されます。
+ステート `setPizzaType` の次に `System.Text` コンポーネントのテンプレートが追加されます。
 
 **【ステップ 7】**
 追加されたステートの名前を `text` から `setPizzaDeliveryTime` に変更します。
@@ -793,7 +789,7 @@ Below the setPizzaSize state, paste the following code (also based on the System
 最終的に時刻として解釈できなかった場合は、`transitions.actions.cancel` で指定したステートに遷移します。
 次のステートのコードをコピーし、ダイアログ・フローの最後に貼り付けます。
 
-```
+```yaml
   maxError:
     component: "System.Output"
     properties:
@@ -933,7 +929,7 @@ Skill Tester の **「Reset」** ボタンをクリックします。
 Skill Tester の **「Message」** フィールドに次の文を入力したら、キーボードの [Enter] キーを押します。
 
 ```
-can you get me the biggest hot and spicy pizza you can make at noon
+can you get me the biggest seafood pizza you can make at noon
 ```
 
 今回は、ユーザーが送信した文にエンティティの情報が含まれているので、すぐに注文内容の確認メッセージが表示されます。
@@ -941,7 +937,7 @@ can you get me the biggest hot and spicy pizza you can make at noon
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-confirmation2.png)
 
 **【ステップ 9】**
-Skill Tester の **「Conversation」** タブを下にスクロールすると、エンティティの値が抽出されていいることがわかります。
+Skill Tester の **「Conversation」** タブを下にスクロールすると、エンティティの値が抽出されていることがわかります。
 
 ![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-variables.png)
 
@@ -950,8 +946,10 @@ You have created your first skill and learned key aspects of defining intents, d
 
 <!--- Designer UI のアイコン/ボタンのスクリーンショットへのリファレンス -->
 [icon_hamburger]:           images/icon_hamburger.png           "ハンバーガー・アイコン"
+[icon_debug]:               images/icon_debug.png               "デバッグ・アイコン"
 [icon_entities_enabled]:    images/icon_entities_enabled.png    "「Entities」アイコン"
 [icon_entities_selected]:   images/icon_entities_selected.png   "「Entities」アイコン"
+[icon_error]:               images/icon_error.png               "エラー・アイコン"
 [icon_flows_enabled]:       images/icon_flows_enabled.png       "「Flows」アイコン"
 [icon_flows_selected]:      images/icon_flows_selected.png      "「Flows」アイコン"
 [icon_intents_enabled]:     images/icon_intents_enabled.png     "「Intents」アイコン"
