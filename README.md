@@ -1,5 +1,17 @@
 # Oracle Digital Assistant - はじめてのスキル開発
 
+## 目次
+
+<!-- TOC -->
+  <!-- - [目次](#%E7%9B%AE%E6%AC%A1) -->
+- [はじめに](#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB)
+- [スキルの作成](#%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%AE%E4%BD%9C%E6%88%90)
+- [インテントの作成](#%E3%82%A4%E3%83%B3%E3%83%86%E3%83%B3%E3%83%88%E3%81%AE%E4%BD%9C%E6%88%90)
+- [ダイアログ・フローのデザイン](#%E3%83%80%E3%82%A4%E3%82%A2%E3%83%AD%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AD%E3%83%BC%E3%81%AE%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3)
+- [スキルのテスト](#%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88)
+
+<!-- /TOC -->
+
 ## はじめに
 
 Oracle Digital Assistant is an environment for building digital assistants, which are user interfaces driven by artifical intelligence (AI) that help users accomplish a variety of tasks in natural language conversations.
@@ -20,6 +32,8 @@ Digital assistants consist of one or more skills, which are individual chatbots 
 |---|---|
 | **「太字」** | ボタン、各種フィールドのラベルなどの GUI 要素 |
 | `固定幅フォント` | サンプルコード、入力するテキスト |
+
+[目次に戻る](#%E7%9B%AE%E6%AC%A1)
 
 ## スキルの作成
 
@@ -160,6 +174,8 @@ To enable it to understand the intents, you need to train it.
 **「Submit」** ボタンをクリックして数秒待つとトレーニングは完了します。
 トレーニングが完了すると **「Train」** ボタンのアイコンがチェック・マークに変わります。
 
+[目次に戻る](#%E7%9B%AE%E6%AC%A1)
+
 ## モデルのテスト
 
 It is not realistic to get the training of your intent model right the first time you do it.
@@ -258,6 +274,8 @@ In this part of the tutorial, you have tested the quality of your intent trainin
 
 In a real skill project, you would always need to go back to the intent testing with user-provided entries you find in the conversation logs.
 If, using that test input, your intents are not matched the way they should be, you need to add them as example utterances to proper intents and then retrain the model.
+
+[目次に戻る](#%E7%9B%AE%E6%AC%A1)
 
 ## エンティティの作成
 
@@ -412,6 +430,8 @@ I want to order the biggest margherita pizza at noon
 
 このセクションでは、ピザの注文プロセスを実行する上で必要な情報をカスタム・エンティティとして定義し、インテント OrderPizza と関連付けました。
 また、ユーザーが送信されたメッセージからエンティティの情報を抽出するテストの手順についても確認しました。
+
+[目次に戻る](#%E7%9B%AE%E6%AC%A1)
 
 ## ダイアログ・フローのデザイン
 
@@ -905,6 +925,8 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 エラーが表示された場合は、修正してください。
 
 エラーを修正できない場合は、[complete-dialog-flow.yaml][complete-dialog-flow] を開いて内容をコピーし、ダイアログ・フロー・エディタに貼り付けてみてください。
+
+[目次に戻る](#%E7%9B%AE%E6%AC%A1)
 
 ## スキルのテスト
 
