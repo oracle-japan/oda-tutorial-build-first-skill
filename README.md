@@ -55,7 +55,7 @@ Oracle Digital Assistant の Designer UI を Web ブラウザで開きます。
 **【ステップ 6】**
 **「Version」** フィールドに `1.0` と入力します。
 
-![「Create Skill」ボックス](images/scrennshot_create_skill-02.png)
+![「Create Skill」ボックス](images/screenshot_create_skill-02.png)
 
 **【ステップ 7】**
 **「Create」** ボタンをクリックすると、Desginer UI には作成したスキルを設定するための画面が表示されます。
