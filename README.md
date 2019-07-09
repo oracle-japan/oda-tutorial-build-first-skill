@@ -5,12 +5,12 @@
 Oracle Digital Assistant is an environment for building digital assistants, which are user interfaces driven by artifical intelligence (AI) that help users accomplish a variety of tasks in natural language conversations.
 Digital assistants consist of one or more skills, which are individual chatbots that are focused on specific types of tasks.
 
-In this lab, you will create a skill that can be used for interactions with a pizzeria, including ordering pizzas and canceling orders.
-As part of this process, you will:
+このチュートリアルでは、ピザの注文を受け付ける基本的なスキルの作成をとおして、Oracle Digital Assistant の次の機能について説明します:
 
-* Define intents, utterances, entities.
-* Design a conversation flow.
-* Validate, debuga and test your skill.
+* インテントとエンティティの定義
+* NLP エンジンのトレーニングとテスト
+* ダイアログ・フローの設計と編集、検証
+* スキルのテスト
 
 ### このチュートリアルの表記方法
 
@@ -70,7 +70,10 @@ Here's where we'll begin to express the use case (that is, the PizzaKing-custome
 Oracle Digital Assistant's underlying natural language processing (NLP) engine doesn't inherently know about the business or task that a skill is supposed to assist with.
 For the skill to understand what it should react to, you need to define intents and examples (utterances) for how a user would request a specific intent.
 
-For the PizzaKing example, you will create intents for ordering pizza, cancelling an order, and filing a complaint.
+このチュートリアルでは、次の２つのインテントを定義します:
+
+* OrderPizza: ピザの注文
+* CancelPizza: 注文のキャンセル
 
 ### インテントの作成 (1) OrderPizza
 
@@ -391,9 +394,6 @@ I want to order a small cheese pizza at 7:30 pm
 
 ![「Try Out Intents/Q&A」ボックス](images/screenshot_try_out_intents-07.png)
 
-> ***Note:***
-> You may need to scroll up in the dialog to see the entities.
-
 **【ステップ 4】**
 他の例についても試してみましょう。
 **「Try Out Intents/Q&A」** ボックスの **「Message」** フィールドに次の文を入力し、**「Send」** ボタンをクリックします。
@@ -402,8 +402,8 @@ I want to order a small cheese pizza at 7:30 pm
 I want to order the biggest margherita pizza at noon
 ```
 
-The result should look like what is shown below and thus prove that the PizzaSize entity shows the right value for the biggest synonym.
-Also "noon" is properly interpreted as 12:00 p.m.
+**「Try Out Intents/Q&A」** ボックスには次のように表示されます。
+ユーザーが送信したメッセージでは配達時刻を `at noon` (正午) と指定していますが、`12:00 p.m.` と抽出していることがわかります。
 
 ![「Try Out Intents/Q&A」ボックス](images/screenshot_try_out_intents-08.png)
 
@@ -430,14 +430,14 @@ We'll add context variables to hold values returned by the intent engine, entity
 Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_enabled] をクリックし、ダイアログ・フロー・エディタを開きます。
 
 **【ステップ 2】**
-`variables:` と `states:` の間の行を削除します。<!-- TODO: 具体的な行番号を書く -->
+`variables:` と `states:` の間の行 (10～25行目) を削除します。
 
 **【ステップ 3】**
 `states:` より下の行を削除します。
 
-ダイアログ・フロー・エディタは次は次のように表示されます。
+ダイアログ・フロー・エディタは次のように表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_dialog-flow1.png)
+![ダイアログ・フロー･エディタ](images/screenshot_flows-01.png)
 
 **【ステップ 4】**
 `variables:` の行の下に次の5行を追加します。
@@ -456,7 +456,7 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 
 ここまでの編集によって、ダイアログ・フロー・エディタは次のように表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_dialog-flow2.png)
+![ダイアログ・フロー･エディタ](images/screenshot_flows-01.png)
 
 これで、ダイアログ・フローにステートを追加する準備が整いました。
 
@@ -473,13 +473,13 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 コンポーネントのテンプレート・ギャラリでは最初にコンポーネントのタイプを選択します。
 **「Language」** を選択します。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_component-gallery.png)
+![テンプレート・ギャラリ](images/screenshot_components-01.png)
 
 **【ステップ 3】**
 コンポーネントのテンプレート・ギャラリの左側にコンポーネントのリストが表示されます。
 コンポーネントのリストから **「Intent」** を選択し、**「Remove Comments」** のスイッチをオンにします。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_component-gallery-intent.png)
+![テンプレート・ギャラリ](images/screenshot_components-02.png)
 
 **【ステップ 4】**
 コンポーネントのテンプレート・ギャラリの **「Apply」** ボタンをクリックします。
@@ -504,13 +504,17 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 * footerText
 
 **【ステップ 7】**
+`translate` プロパティの値として `false` に設定します。
+ブーリアン型の値 (`true` または `false` のどちらかをセットする値)は、ダブル・クォーテーション (`"`) は不要です。
+
+**【ステップ 8】**
 次に遷移するステートを設定するため、`transition.actions` プロパティを次のように編集します。
 
 ```yaml
     transitions:
       actions:
         OrderPizza: "startOrderPizza"
-        CancelPizza: "cancelPizza"
+        CancelPizza: "startCancelPizza"
         unresolvedIntent: "startUnresolved"
 ```
 
@@ -531,22 +535,9 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 * startUnresolved
 
 それぞれのステートは、`System.Output` コンポーネントを使用してメッセージを出力した後、`transitions.return` プロパティを使用して会話を終了します。
-このチュートリアルでは時間を節約するために、テキストをコピーし、ダイアログ・フロー・エディタに貼り付けることにします。
+このチュートリアルでは時間を節約するために、次のコード・ブロックをコピーし、ダイアログ・フロー・エディタの最後尾に貼り付けることにします。
 
-**【ステップ 1】**
-[states.txt] を開きます。
-
-**【ステップ 2】**
-テキストのコンテンツをコピーし、ダイアログ・フローの最後に貼り付けます。
-
-貼り付けられたコンテンツが、インデントを保持していることを確認してください。
-
-**【ステップ 3】**
-Designer UI の右上にある **「Validate」** ボタンをクリックして、追加したステートの構文が正しいことを確認します。
-
-<!--
 ```yaml
-  # Intent が OrderPizza の場合: ピザの注文
   startOrderPizza:
     component: "System.Output"
     properties:
@@ -555,7 +546,6 @@ Designer UI の右上にある **「Validate」** ボタンをクリックして
     transitions:
       return: "done"
 
-  # Intent が CancelPizza の場合: ピザの注文をキャンセル
   startCancelPizza:
     component: "System.Output"
     properties:
@@ -563,7 +553,6 @@ Designer UI の右上にある **「Validate」** ボタンをクリックして
     transitions:
       return : "done"
 
-  # 該当するインテントがないと判定された場合
   startUnresolved:
     component: "System.Output"
     properties:
@@ -571,7 +560,10 @@ Designer UI の右上にある **「Validate」** ボタンをクリックして
     transitions:
       return: "done"
 ```
--->
+
+貼り付けられたコード・ブロックが、インデントを保持していることを確認してください。
+また、Designer UI の右上にある **「Validate」** ボタンをクリックして、追加したステートの構文が正しいことを確認します。
+
 
 ### ダイアログ・フローのトラブルシューティング
 
@@ -587,7 +579,7 @@ If you have gotten into a jam and can’t get anything to work, open the [your-f
 
 ### インテントの判定のチューニング
 
-Before moving further, let's take a look at some settings that are useful for fine-tuning intent resolution.
+ここでは、インテントの判定について微調整するのに役立つ設定について説明します。
 
 * **Confidence Threshold**:
 The skill uses this property to steer the conversation by the confidence level of the resolved intent.
@@ -600,7 +592,7 @@ This property helps the skill determine what intents should be in the list.
 Set the maximum level to use for the delta between the respective confidence levels for the top intents.
 The list includes the intents that are greater than or equal to this delta and exceed the value set for the Confidence Threshold.
 
-Let's update these settings:
+これら2つの設定を変更しましょう。
 
 **【ステップ 1】**
 Designer UI の画面左側のナビゲーションで ![「Settings」アイコン][icon_settings_enabled] をクリックします。
@@ -612,11 +604,11 @@ Designer UI の画面左側のナビゲーションで ![「Settings」アイコ
 **【ステップ 3】**
 **「Confidence Win Margin」** の値を `0.1` (10% 以上を意味しています)に設定します。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_settings-thresholds.png)
+![スキルの設定画面](images/screenshot_settings-01.png)
 
 ### ダイアログ・フローのテスト
 
-スキルの開発を進める前に、ここまでに設定した内容をテストしてみましょう。
+ここまでに設定した内容をテストしてみましょう。
 Designer UI の Skill Tester を使用すると、簡単に会話の流れを確認できます。
 ここでは、各インテントに応じたメッセージが表示されることを確認します。
 
@@ -632,12 +624,15 @@ I want to order a pizza
 ```
 
 OrderPizza に対応した（ステート `startOrderPizza` で設定した）メッセージが表示されることを確認します。
+Skill Tester の右側の **「Conversation」** タブでは、ステートの遷移が確認できます。
+
+![スキル・テスター](images/screenshot_skill_tester-01.png)
 
 **【ステップ 3】**
 Skill Tester の右側にある **「Intent/Q&A」** タブをクリックすると、NLP エンジンによるインテントの判定結果を確認できます。
 次のスクリーンショットのように表示されているはずです。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_test-intent-qa.png)
+![スキル・テスター](images/screenshot_skill_tester-02.png)
 
 **【ステップ 4】**
 Skill Tester の右上にある **「Reset」** ボタンをクリックします。
@@ -663,10 +658,10 @@ Skill Tester の **「Message」** フィールドに次の文を入力してか
 Can you get me a radio taxi now?
 ```
 
-**【ステップ 8】**
+**【ステップ 9】**
 **「Intent/Q&A」** タブをクリックして NLP エンジンの判定結果を確認します。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_test-intent-qa3.png)
+![スキル・テスター](images/screenshot_skill_tester-03.png)
 
 作成した2つのインテントのどちらも Confidence スコアが 60% を超えていません。
 そのため、該当するインテントがないと判定された場合 (unresolvedIntent) に対応したステート `startUnresolved` に遷移しました。
@@ -685,12 +680,12 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
 5. `showPizzaOrder`: 注文内容の確認メッセージの出力
 
 **【ステップ 1】**
-前のセクションで追加したダイアログ・フロー・エディタの `startOrderPizza` ステートにナビゲートします。
+Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_enabled] をクリックし、ダイアログ・フロー・エディタを開きます。
+前のセクションで追加したダイアログ・フロー・エディタのステート `startOrderPizza` にナビゲートします。
 
 **【ステップ 2】**
 `keepTurn` プロパティの値を `true` に変更します。
 通常は、スキルとユーザーが交互にメッセージを送信しますが、`keepTurn` プロパティの値を `true` に設定すると、スキルからユーザーに連続でメッセージを送信できます。
-ブーリアン型の値 (`true` または `false` のどちらかをセットする値)は、ダブル・クォーテーション (`"`) は不要です。
 
 **【ステップ 3】**
 `transitions:` の次の行にある `return: "done"` を `next: "setPizzaSize"` に置き換えます。
@@ -705,7 +700,7 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
       next: "setPizzaSize"
 ```
 
-#### ピザのサイズの選択
+#### ピザのサイズの選択: setPizzaSize
 
 **【ステップ 1】**
 ![「Components」ボタン][button_components] をクリックして、コンポーネントのテンプレート・ギャラリを開きます。
@@ -722,7 +717,7 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
 **【ステップ 5】**
 **「Remove Comments」** スイッチをオンにします。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_component-setvar.png)
+![テンプレート・ギャラリ](images/screenshot_components-03.png)
 
 **【ステップ 6】**
 **「Apply」** ボタンをクリックします。
@@ -739,7 +734,7 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
     component: "System.List"
     properties:
       options: "${pizzaSize.type.enumValues}"
-      prompt: "ピザのサイズはどれにしますか？"
+      prompt: "ピザのサイズをお選びください。"
       variable: "pizzaSize"
       nlpResultVariable: "iResult"
     transitions:
@@ -800,6 +795,7 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
       variable: "deliveryTime"
       nlpResultVariable: "iResult"
       maxPrompts: 3
+      translate: false
     transitions:
       actions:
         cancel: "maxError"
@@ -853,9 +849,9 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
     properties:
       variable: "pizzaOrderMsg"
       value:
-      - "ご注文ありがとうございます。次のとおりご注文を承りました。"
+      - "ご注文ありがとうございました。次のとおりご注文を承りました。"
       - "サイズ: ${pizzaSize.value}"
-      - "種類: ${pizzaSize.value}"
+      - "種類: ${pizzaType.value}"
       - "配達時刻: ${deliveryTime.value.date?long?number_to_time?string('HH:mm')}"
 ```
 
@@ -911,7 +907,8 @@ We'll complete the pizza order process by fetching the pizza size, topping, and 
 
 ## スキルのテスト
 
-Now that all of the skill's pieces are in place, let's test its behavior.
+ここまでの操作で、Pizza King のスキルが一通り設定できました。
+スキル・テスターを使用して、動作を確認してみましょう。
 
 **【ステップ 1】**
 Designer UI の画面左側のナビゲーション・バーの下部にある ![「Skill Tester」アイコン][icon_skill_tester] をクリックします。
@@ -928,21 +925,20 @@ I want to order pizza
 
 ピザのサイズの選択を促すメニューが表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-small.png)
+![スキル・テスター](images/screenshot_skill_tester-04.png)
 
-**【ステップ 4】**
 ピザのサイズを選択するメニューから適当に値を選択します。
 
-**【ステップ 5】**
+**【ステップ 4】**
 ピザの種類を選択するメニューが表示されます。
 適当な種類を選択します。
 
-**【ステップ 6】**
-配達時刻の入力を促されます。`7:30 PM` や `19:30` のように時刻を指定します。
+**【ステップ 5】**
+配達時刻の入力を促されます。`9:00 PM` や `21:00` のように時刻を指定します。
 
 これにより、注文内容の確認メッセージが表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-confirmation.png)
+![スキル・テスター](images/screenshot_skill_tester-05.png)
 
 **【ステップ 7】**
 Skill Tester の **「Reset」** ボタンをクリックします。
@@ -956,15 +952,23 @@ can you get me the biggest seafood pizza you can make at noon
 
 今回は、ユーザーが送信した文にエンティティの情報が含まれているので、すぐに注文内容の確認メッセージが表示されます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-order-confirmation2.png)
+![スキル・テスター](images/screenshot_skill_tester-06.png)
 
 **【ステップ 9】**
-Skill Tester の **「Conversation」** タブを下にスクロールすると、エンティティの値が抽出されていることがわかります。
+Skill Tester の **「Conversation」** タブ・ページを下にスクロールすると、変数に格納されている値を確認することができます。
 
-![](https://docs.oracle.com/en/cloud/paas/digital-assistant/tutorial-skill/img/screenshot_tester-variables.png)
+![スキル・テスター](images/screenshot_skill_tester-07.png)
 
-Congratulations!
-You have created your first skill and learned key aspects of defining intents, defining entities, designing the conversation flow, and using the tester to evaluate intent resolution and the conversation flow.
+----
+
+お疲れ様でした! このチュートリアルはこれで終了です。
+
+このチュートリアルでは、ピザの注文を受け付ける基本的なスキルの作成をとおして、Oracle Digital Assistant の次の機能について説明しました:
+
+* インテントとエンティティの定義
+* NLP エンジンのトレーニングとテスト
+* ダイアログ・フローの設計と編集、検証
+* スキルのテスト
 
 <!--- Designer UI のアイコン/ボタンのスクリーンショットへのリファレンス -->
 [icon_hamburger]:           images/icon_hamburger.png           "ハンバーガー・アイコン"
