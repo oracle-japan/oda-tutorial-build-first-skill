@@ -589,18 +589,21 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 貼り付けられたコード・ブロックが、インデントを保持していることを確認してください。
 また、Designer UI の右上にある **「Validate」** ボタンをクリックして、追加したステートの構文が正しいことを確認します。
 
-
 ### ダイアログ・フローのトラブルシューティング
 
-If you don't see a success message, then most likely you misspelled a property name or did not follow the required two-space indenting increments.
-In this case, scroll through the dialog flow until you see an [x error] icon icon in the left margin.
-Mouse over the icon to display the tooltip with a description of the problem.
+**「Validate」** ボタンをクリックしたときに、エラー・メッセージが表示された場合は、次のどちらかが原因であることが多いです:
 
-In addition, you can click the debug icon ([debug icon]), which appears to the left of the dialog flow editor.
-It often provides additional information about the reason.
-You close the debug window by clicking the debug icon again.
+* プロパティの名前にスペル・ミスがあった
+* インデントが正しく設定されていない
 
-If you have gotten into a jam and can’t get anything to work, open the [your-first-dialog-flow.yaml][your-first-dialog-flow] and replace the content in your dialog flow with the content from the file.
+エラーのある行は、ダイアログ・フロー・エディタの左余白（行番号の左）に ![エラー・アイコン][icon_error] が表示されます。
+![エラー・アイコン][icon_error] にマウス・ポインタを乗せると、ツールチップで原因が表示されます。
+
+また、Designer UI の画面左のナビゲーション・バーの一番下に表示される ![デバッグ・アイコン][icon_debug] をクリックすると、デバッグ・ウィンドウが表示され、エラーのある行とそのれぞれの原因が表示されます。
+デバッグ・ウィンドウには、![エラー・アイコン][icon_error] のツールチップで表示される原因よりも詳細な情報が表示されることがあるので、エラーの修正に役立ちます。
+![デバッグ・アイコン][icon_debug] を再度クリックすれば、デバッグ・ウィンドウは非表示になります。
+
+もし、このチュートリアルで作成したダイアログ・フローでエラーが発生し、どうしてもエラーが修正できない場合は、 [your-first-dialog-flow.yaml][your-first-dialog-flow] の内容をコピーし貼り付けることでチュートリアルの続きを実施できます。
 
 ### インテントの判定のチューニング
 
