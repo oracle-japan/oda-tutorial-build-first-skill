@@ -12,12 +12,10 @@
   - [スキルのテスト](#%E3%82%B9%E3%82%AD%E3%83%AB%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88)
 
 <!-- /TOC -->
-<!-- /TOC -->
 
 ## はじめに
 
-Oracle Digital Assistant is an environment for building digital assistants, which are user interfaces driven by artifical intelligence (AI) that help users accomplish a variety of tasks in natural language conversations.
-Digital assistants consist of one or more skills, which are individual chatbots that are focused on specific types of tasks.
+Oracle Digital Assistant は、AI を活用したチャットボットの構築をシンプルにするプラットフォームとツールを提供します。
 
 このチュートリアルでは、ピザの注文を受け付ける基本的なスキルの作成をとおして、Oracle Digital Assistant の次の機能について説明します:
 
@@ -85,8 +83,8 @@ Here's where we'll begin to express the use case (that is, the PizzaKing-custome
 
 ## インテントの作成
 
-Oracle Digital Assistant's underlying natural language processing (NLP) engine doesn't inherently know about the business or task that a skill is supposed to assist with.
-For the skill to understand what it should react to, you need to define intents and examples (utterances) for how a user would request a specific intent.
+Oracle Digital Assistant のベースとなる自然言語言語処理エンジン (Natural Language Processiong; NLP) は、この段階ではどのようなタスクを実行するのか、どのようなリクエストに応えればよいのかを知りません。
+それを覚えるために、Oracle Digital Assistant のスキルに対してインテント（意図）を定義していきます。
 
 このチュートリアルでは、次の２つのインテントを定義します:
 
@@ -158,10 +156,10 @@ Designer UI の画面左側のナビゲーションで ![「Intents」アイコ�
 
 ### インテントのトレーニング
 
-You've now provided the basic ingredients that allow the skill to recognize user input for ordering a pizza, but right now, the skill has no cognition.
-It can't understand any user input.
+インテントとその例文を提示しただけでは、ユーザーのリクエストがピザの注文なのか、キャンセルなのかを判断することはできません。
+スキルがユーザーのリクエストを判断できるようにするためには、NLP エンジンのトレーニングが必要です。
 
-To enable it to understand the intents, you need to train it.
+Oracle Digital Assistant の NLP エンジンは次の手順でトレーニングを行います。
 
 **【ステップ 1】**
 画面の右上に ![「Train」ボタン][button_train] が表示されていることを確認します。
@@ -182,11 +180,7 @@ To enable it to understand the intents, you need to train it.
 
 ## モデルのテスト
 
-It is not realistic to get the training of your intent model right the first time you do it.
-Good intent models are created in an iterative cycle of training, testing, retraining, and retesting.
-
-A good intent model is one that has a low ambiguity between the different intents.
-So let's see how well we’re doing so far.
+トレーニングが完了したら、NLP エンジンをテストしてみましょう。
 
 **【ステップ 1】**
 Designer UI のインテントの編集ページが表示されていない場合は、画面左側のナビゲーションの ![「Intents」アイコン][icon_intents_enabled] をクリックします。
@@ -263,32 +257,35 @@ Confidence のスコアが高くない場合は、テストに使用した文を
 **【ステップ 10】**
 テストが終わったら、![「Close」ボタン][button_close_try_it_out] をクリックして、**「Try Out Intents/Q&A」** ボックスを閉じます。
 
-> ***Note:***
+<!-- > ***Note:***
 > Conversational AI does not compare input by exact matches of the words.
 > Though "Dude, bring me pizza" is available as an utterance, when entering the sentence as a message, it is the intent model's algorithm that determines the matching intent.
 
 > ***Note:***
 > In these examples, you might get slightly different confidence scores than what are shown here.
 > And in some cases, the matching intents themselves could vary, should the differing confidence scores push those intents above or below the given confidence thresholds.
-> The cause of this variance is the non-deterministic nature of the AI behind the natural language processing and the fact that these skills have a limited number of training utterances (in order to make the lab simpler).
+> The cause of this variance is the non-deterministic nature of the AI behind the natural language processing and the fact that these skills have a limited number of training utterances (in order to make the lab simpler). -->
 
 ### このセクションのまとめ
 
-In this part of the tutorial, you have tested the quality of your intent training with the goal being to ensure a high level of confidence when resolving intents.
-
-In a real skill project, you would always need to go back to the intent testing with user-provided entries you find in the conversation logs.
-If, using that test input, your intents are not matched the way they should be, you need to add them as example utterances to proper intents and then retrain the model.
+このチュートリアルでは、NLP エンジンによるインテントの判定のテストを行いました。
+実際の Oracle Digital Assistant による開発では、例文の投入 → トレーニング → テスト というサイクルを何度かまわすことで、NLP のエンジンの判定の精度を向上させていきます。
 
 [目次に戻る](#%E7%9B%AE%E6%AC%A1)
 
 ## エンティティの作成
 
-Now it's time to add entities, which detect information in the user input that can help the intent fulfill a user request.
-For the Pizza King business, such information could be the size of pizza, the toppings of pizza, and delivery time.
-For example, the user input "I'd like to order a small meaty pizza at 9:00 pm" contains all three of these information types.
+ユーザーのリクエストを処理するためには、追加で情報が必要なことがあります。
+例えば、ピザの注文では、ピザのサイズや種類、配達時刻などを指定します。
+これらの追加情報をエンティティとして定義します。
 
-We'll create custom entities for size and topping and later use a built-in entity for time.
-While we're at it, we'll add some synonyms (including some common misspellings) that optimize the entity's ability to tag words from sloppy user input.
+エンティティを定義することによって、ユーザーから送信されてきたメッセージ内から必要な情報を抽出することができるようになります。
+また、メッセージに必要な情報が含まれていなければ、会話形式でユーザーに追加質問していくことが簡単に実現できます。
+
+このチュートリアルでは2つのエンティティを定義します:
+
+* PizzaSize: ピザのサイズ
+* PizzaType: ピザの種類
 
 ### エンティティの作成 (1) PizzaSize
 
@@ -333,7 +330,7 @@ Designer UI の画面左側のナビゲーションで ![「Entities」アイコ
 
 ![エンティティ編集画面](images/screenshot_entities-01.png)
 
-### エンティティの作成 (2) PizzaSize
+### エンティティの作成 (2) PizzaType
 
 **【ステップ 1】**
 新しいエンティティを作成するために、![「+ Entitiy」ボタン][button_create_entity] をクリックします。
@@ -439,17 +436,26 @@ I want to order the biggest margherita pizza at noon
 
 ## ダイアログ・フローのデザイン
 
-With the NLP model created, you are ready to build the dialog flow for the skill.
-The dialog flow is a conversation blueprint that defines interactions users may have with the skill.
-Each interaction is defined as a state. Each state references a component, which renders a skill response, receives user input, sets and resets variables, resolves user intents, or authenticates users.
+NLP エンジンのためのデータ・モデルを作成できたので、会話の流れを定義していきましょう。
+Oracle Digital Assistant のスキルの場合は、この会話の流れを「ダイアログ・フロー」呼び、ユーザーからのインプットやユーザーに対するレスポンスを定義します。
 
-### ダイアログ・フローのアウトラインのセットアップ
+ダイアログ・フローは複数のステートで構成されます。
+1つのステートの処理が終わると、次のステートに遷移していきます。
+それぞれのステートは、1つのコンポーネントを参照します。
+ユーザーに選択肢のメニューを提示したり、テキストの入力を促したり、メッセージを出力したりと、さまざまな機能を持つコンポーネントがあらかじめ提供されています。
 
-Our first step is to create the basic flow outline, including context variables and states to handle the user's initial input.
+### ダイアログ・フローのコンテキスト変数の定義
 
-Context variables are the skill's temporary memory.
-They can be referenced throughout the dialog flow.
-We'll add context variables to hold values returned by the intent engine, entity values, and the value for the pizza order message.
+ダイアログ・フローはコンテキスト変数を定義できます。
+コンテキスト変数は主に、一連の会話で共有する情報を保持するために使用します。
+
+今回は5つのコンテキスト変数を定義します。
+
+* `iResult`: NLP エンジンによるインテントの判定およびエンティティの抽出結果
+* `pizzaSize`: エンティティ PizzaSize で表された、ピザのサイズ
+* `pizzaType`: エンティティ PizzaType で表された、ピザの種類
+* `deliveryTime`: ビルトイン・エンティティ TIME で表されたピザの配達時間
+* `pizzaOrderMsg`: ピザの注文内容を表す文字列
 
 **【ステップ 1】**
 Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_enabled] をクリックし、ダイアログ・フロー・エディタを開きます。
@@ -481,7 +487,7 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 
 ここまでの編集によって、ダイアログ・フロー・エディタは次のように表示されます。
 
-![ダイアログ・フロー･エディタ](images/screenshot_flows-01.png)
+![ダイアログ・フロー･エディタ](images/screenshot_flows-02.png)
 
 これで、ダイアログ・フローにステートを追加する準備が整いました。
 
@@ -610,17 +616,15 @@ Designer UI のナビゲーションで ![「Flows」アイコン][icon_flows_en
 ここでは、インテントの判定について微調整するのに役立つ設定について説明します。
 
 * **Confidence Threshold**:
-The skill uses this property to steer the conversation by the confidence level of the resolved intent.
-Set the minimum confidence level required to match an intent.
-When the level falls below this minimum value, the component triggers its unresolvedIntent action.
+NLP エンジンの Confidence スコアのしきい値。
+定義されたすべてのインテントの Confidence スコアが、どれもしきい値を超えない場合は、該当するインテントがないと判定さます。
 
 * **Confidence Win Margin**:
-When a skill can’t determine a specific intent, it displays a list of possible intents and prompts the user to choose one.
-This property helps the skill determine what intents should be in the list.
-Set the maximum level to use for the delta between the respective confidence levels for the top intents.
-The list includes the intents that are greater than or equal to this delta and exceed the value set for the Confidence Threshold.
+Confidence スコア 1位と2位の差分。
+設定した値より1位と2位の差が開いていない場合に、ユーザーに対してどちらのインテントに該当するのかを確認できるようになります。
+例えばこの値 0.1 (10%) と設定した場合に、1位のインテントが60%、2位のインテントが55%だった場合に、メニューを表示させることが可能です。
 
-これら2つの設定を変更しましょう。
+それでは、これら2つの設定を変更しましょう。
 
 **【ステップ 1】**
 Designer UI の画面左側のナビゲーションで ![「Settings」アイコン][icon_settings_enabled] をクリックします。
@@ -696,10 +700,8 @@ Can you get me a radio taxi now?
 
 ### ピザの注文を受ける会話の作成
 
-Now that we have verified that the basic intent model is working, the next step is to implement conversation flows for each intent.
-In the interest of time, we'll do this just for the PizzaOrder intent.
-
-We'll complete the pizza order process by fetching the pizza size, topping, and delivery time, and then printing an order summary.
+このセクションでは、次の５つのステートを追加していきます。
+処理の流れと処理内容は次のとおりです。
 
 1. `setPizzaSize`: ピザのサイズを選択
 2. `setPizzaType`: ピザの種類を選択
