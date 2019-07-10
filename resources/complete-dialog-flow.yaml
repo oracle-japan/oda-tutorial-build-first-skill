@@ -1,0 +1,109 @@
+#metadata: information about the flow
+#  platformVersion: the version of the bots platform that this flow was written to work with
+metadata:
+  platformVersion: "1.0"
+main: true
+name: PizzaKing
+#context: Define the variables which will used throughout the dialog flow here.
+context:
+  variables:
+    iResult: "nlpresult"
+    pizzaSize: "PizzaSize"
+    pizzaType: "PizzaType"
+    deliveryTime: "TIME"
+    pizzaOrderMsg: "string"
+states:
+  intent:
+    component: "System.Intent"
+    properties:
+      variable: "iResult"
+      optionsPrompt: "Do you want to"
+      translate: false
+      daIntercept: "always"
+    transitions:
+      actions:
+        OrderPizza: "startOrderPizza"
+        CancelPizza: "startCancelPizza"
+        unresolvedIntent: "startUnresolved"
+
+  startOrderPizza:
+    component: "System.Output"
+    properties:
+      text: "こんにちは、Pizza King です。ご注文を承ります。"
+      keepTurn: true
+    transitions:
+      next: "setPizzaSize"
+
+  setPizzaSize:
+    component: "System.List"
+    properties:
+      prompt: "ピザのサイズをお選びください。"
+      options: "${pizzaSize.type.enumValues}"
+      variable: "pizzaSize"
+      nlpResultVariable: "iResult"
+    transitions:
+      next: "setPizzaType"
+
+  setPizzaType:
+    component: "System.List"
+    properties:
+      options: "${pizzaType.type.enumValues}"
+      prompt: "どのピザにしますか？"
+      variable: "pizzaType"
+      nlpResultVariable: "iResult"
+    transitions:
+      next: "setPizzaDeliveryTime"
+
+  setPizzaDeliveryTime:
+    component: "System.Text"
+    properties:
+      prompt: "何時にお届けしますか？"
+      variable: "deliveryTime"
+      nlpResultVariable: "iResult"
+      maxPrompts: 3
+      translate: false
+    transitions:
+      actions:
+        cancel: "maxError"
+        next: "setPizzaOrderMessage"
+
+  setPizzaOrderMessage:
+    component: "System.SetVariable"
+    properties:
+      variable: "pizzaOrderMsg"
+      value:
+      - "ご注文ありがとうございました。次のとおりご注文を承りました。"
+      - "サイズ: ${pizzaSize.value}"
+      - "種類: ${pizzaType.value}"
+      - "配達時刻: ${deliveryTime.value.date?long?number_to_time?string('HH:mm')}"
+
+  showPizzaOrder:
+    component: "System.Output"
+    properties:
+      text: |-
+              <#list pizzaOrderMsg.value as text>${text}
+
+              </#list>
+    transitions:
+      return: "done"
+
+  startCancelPizza:
+    component: "System.Output"
+    properties:
+      text: "注文のキャンセルを承りました。"
+    transitions:
+      return : "done"
+
+  startUnresolved:
+    component: "System.Output"
+    properties:
+      text: "申し訳ありません。おっしゃっていることが理解できませんでした。"
+    transitions:
+      return: "done"
+
+  maxError:
+    component: "System.Output"
+    properties:
+      text: "恐れ入りますがお電話でのご注文をお願いします。"
+    transitions:
+      return: "done"

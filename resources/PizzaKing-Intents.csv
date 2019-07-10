@@ -1,0 +1,24 @@
+query,topIntent,conversationName
+Need to cancel my order,CancelPizza,CancelPizza
+Its been more than 20 mts. Please cancel my order and issue a refund to my card.,CancelPizza,CancelPizza
+Please don't deliver my Pizza,CancelPizza,CancelPizza
+I don't want my Pizza anymore,CancelPizza,CancelPizza
+I'd like to cancel my order please,CancelPizza,CancelPizza
+I really don't want the Pizza anymore,CancelPizza,CancelPizza
+Can i cancel my order?,CancelPizza,CancelPizza
+Cancel my order,CancelPizza,CancelPizza
+How do I cancel my order?,CancelPizza,CancelPizza
+Cancel my Pizza please,CancelPizza,CancelPizza
+Please cancel my pizza order,CancelPizza,CancelPizza
+I want to order pizza for lunch,OrderPizza,OrderPizza
+Do you server gluten-free pizza?,OrderPizza,OrderPizza
+Do you have deep dish pizzas available?,OrderPizza,OrderPizza
+I would like to order a pizza,OrderPizza,OrderPizza
+Can I order a Pizza?,OrderPizza,OrderPizza
+Would you happen to have thin crust options on your Pizzas?,OrderPizza,OrderPizza
+I feel like eating some pizza,OrderPizza,OrderPizza
+Order Pizza!,OrderPizza,OrderPizza
+Would love a large Pepperoni please!,OrderPizza,OrderPizza
+Let's order a cheese pizza,OrderPizza,OrderPizza
+What's on the menu today?,OrderPizza,OrderPizza
+I want pizza,OrderPizza,OrderPizza
